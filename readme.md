@@ -99,7 +99,7 @@ We provide the implementation of different DA methods in Step III of LFreeDA on 
 
 
 ## 4. Data 
-Due to size restrictions (~175 GB), the `data/` folder cannot be included in this repository. It contains all the data needed (features, labels and pretrained models) to reproduce our experiments and will be released upon paper acceptance.
+Due to size restrictions (~175 GB), the entire `data/` folder cannot be included in this repository. It contains all the data needed (features, labels and pretrained models) to reproduce our experiments and will be released upon paper acceptance.
 
 ```plaintext
 data/
