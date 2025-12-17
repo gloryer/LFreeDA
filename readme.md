@@ -11,39 +11,39 @@ This repository contains the code and instructions for running the experiments i
 
 We provide the code for producing the performance metrics of Step I of LfreeDA on the MB-24+ adaptation tasks, as presented in **Figure 4** of the paper.
 
-- [Aug testing](StepI/train_mb24_aug.py): ```python StepI/train_mb24_aug.py```
-- [Sep testing](StepI/train_mb24_sep.py): ```python StepI/train_mb24_sep.py```
-- [Oct testing](StepI/train_mb24_oct.py): ```python StepI/train_mb24_oct.py```
-- [Nov testing](StepI/train_mb24_nov.py): ```python StepI/train_mb24_nov.py```
-- [Dec testing](StepI/train_mb24_dec.py): ```python StepI/train_mb24_dec.py```
+- [Aug testing](StepI/train_mb24+_aug.py): ```python StepI/train_mb24+_aug.py```
+- [Sep testing](StepI/train_mb24+_sep.py): ```python StepI/train_mb24+_sep.py```
+- [Oct testing](StepI/train_mb24+_oct.py): ```python StepI/train_mb24+_oct.py```
+- [Nov testing](StepI/train_mb24+_nov.py): ```python StepI/train_mb24+_nov.py```
+- [Dec testing](StepI/train_mb24+_dec.py): ```python StepI/train_mb24+_dec.py```
 
 ### Step II: Pseudo-label Selection
 
 
-The Step II notebooks compute ACS scores for each outlier‐detection method with confidence filtering and report pseudo-label accuracy for three settings—without Step II, with confidence filtering only, and with confidence filtering plus outlier detection—matching the results shown in **Figure 6** of the paper. 
+The Step II notebooks compute ACS scores for each outlier‐detection method with confidence filtering and report pseudo-label accuracy for three settings—without Step II, with confidence filtering only, and with confidence filtering plus outlier detection—matching the results shown in **Figure 6** of the paper.
 
-- [July testing](StepII/mb24/mb24_july.ipynb): *StepII/mb24/mb24_july.ipynb*
-- [Aug testing](StepII/mb24/mb24_aug.ipynb): *StepII/mb24/mb24_aug.ipynb*
-- [Sep testing](StepII/mb24/mb24_sep.ipynb): *StepII/mb24/mb24_sep.ipynb*
-- [Oct testing](StepII/mb24/mb24_oct.ipynb): *StepII/mb24/mb24_oct.ipynb*
-- [Nov testing](StepII/mb24/mb24_nov.ipynb): *StepII/mb24/mb24_nov.ipynb*
-- [Dec testing](StepII/mb24/mb24_dec.ipynb): *StepII/mb24/mb24_dec.ipynb*
+- [July testing](StepII/mb24+/mb24+_july.ipynb): *StepII/mb24+/mb24+_july.ipynb*
+- [Aug testing](StepII/mb24+/mb24+_aug.ipynb): *StepII/mb24+/mb24+_aug.ipynb*
+- [Sep testing](StepII/mb24+/mb24+_sep.ipynb): *StepII/mb24+/mb24+_sep.ipynb*
+- [Oct testing](StepII/mb24+/mb24+_oct.ipynb): *StepII/mb24+/mb24+_oct.ipynb*
+- [Nov testing](StepII/mb24+/mb24+_nov.ipynb): *StepII/mb24+/mb24+_nov.ipynb*
+- [Dec testing](StepII/mb24+/mb24+_dec.ipynb): *StepII/mb24+/mb24+_dec.ipynb*
 
 
 ### Step III: Adaptation with Selected Pseudolabels
 
-We provide the implementation of different DA methods in Step III of LFreeDA on the MB-24 adaptation tasks, producing performance metrics reported in **Figure 7** of the paper. 
+We provide the implementation of different DA methods in Step III of LFreeDA on the MB-24+ adaptation tasks, producing performance metrics reported in **Figure 7** of the paper.
 
 
 - August testing:
-  - [Lower bound (ResNet)](StepIII/Images/Lower_bound/train_mb24_aug.py): ```python StepIII/Images/Lower_bound/train_mb24_aug.py```
-  - [Lower bound (GIN)](StepIII/CFGs/Lower_bound/train_mb24_aug.py): ```python StepIII/CFGs/Lower_bound/train_mb24_aug.py```
-  - [Upper bound (ResNet)](StepIII/Images/Upper_bound/train_mb24_aug.py): ```python StepIII/Images/Upper_bound/train_mb24_aug.py```
-  - [Upper bound (GIN)](StepIII/CFGs/Upper_bound/train_mb24_aug.py): ```python StepIII/CFGs/Upper_bound/train_mb24_aug.py```
-  - [Warm-start ResNet-50](StepIII/Images/Warm_start/train_mb24_aug.py): ```python StepIII/Images/Warm_start/train_mb24_aug.py```
-  - [Warm-start GIN](StepIII/CFGs/Warm_start/train_mb24_aug.py): ```python StepIII/CFGs/Warm_start/train_mb24_aug.py```
-  - [AdvDA + GIN](StepIII/CFGs/AdvDA/train_mb24_aug.py): ```python StepIII/CFGs/AdvDA/train_mb24_aug.py```
-  - [AdvDA + CNN](StepIII/Images/AdvDA/train_mb24_aug.py): ```python StepIII/Images/AdvDA/train_mb24_aug.py```
+  - [Lower bound (ResNet)](StepIII/Images/Lower_bound/train_mb24+_aug.py): ```python StepIII/Images/Lower_bound/train_mb24+_aug.py```
+  - [Lower bound (GIN)](StepIII/CFGs/Lower_bound/train_mb24+_aug.py): ```python StepIII/CFGs/Lower_bound/train_mb24+_aug.py```
+  - [Upper bound (ResNet)](StepIII/Images/Upper_bound/train_mb24+_aug.py): ```python StepIII/Images/Upper_bound/train_mb24+_aug.py```
+  - [Upper bound (GIN)](StepIII/CFGs/Upper_bound/train_mb24+_aug.py): ```python StepIII/CFGs/Upper_bound/train_mb24+_aug.py```
+  - [Warm-start ResNet-50](StepIII/Images/Warm_start/train_mb24+_aug.py): ```python StepIII/Images/Warm_start/train_mb24+_aug.py```
+  - [Warm-start GIN](StepIII/CFGs/Warm_start/train_mb24+_aug.py): ```python StepIII/CFGs/Warm_start/train_mb24+_aug.py```
+  - [AdvDA + GIN](StepIII/CFGs/AdvDA/train_mb24+_aug.py): ```python StepIII/CFGs/AdvDA/train_mb24+_aug.py```
+  - [AdvDA + CNN](StepIII/Images/AdvDA/train_mb24+_aug.py): ```python StepIII/Images/AdvDA/train_mb24+_aug.py```
 
 **Repeat the same directory structure (replace `aug` with `sep`, `oct`, `nov`, `dec`) for the Sep, Oct, Nov, Dec testing.**
 
