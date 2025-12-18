@@ -23,11 +23,11 @@ We provide the code for producing the performance metrics of Step I of LfreeDA o
 The Step II notebooks compute ACS scores for each outlier-detection method with confidence filtering. We report pseudo-label accuracy for three settings: (1) without Step II, (2) with confidence filtering only, and (3) with confidence filtering plus outlier detection (Step II). These results correspond to **Figure 6** in the paper.
 
 
-- [Aug testing](StepII/mb24+/mb24+_aug.ipynb): *StepII/mb24+/mb24+_aug.ipynb*
-- [Sep testing](StepII/mb24+/mb24+_sep.ipynb): *StepII/mb24+/mb24+_sep.ipynb*
-- [Oct testing](StepII/mb24+/mb24+_oct.ipynb): *StepII/mb24+/mb24+_oct.ipynb*
-- [Nov testing](StepII/mb24+/mb24+_nov.ipynb): *StepII/mb24+/mb24+_nov.ipynb*
-- [Dec testing](StepII/mb24+/mb24+_dec.ipynb): *StepII/mb24+/mb24+_dec.ipynb*
+- [Aug testing](StepII/mb24+/mb24+_aug.ipynb): ```jupyter notebook StepII/mb24+/mb24+_aug.ipynb```
+- [Sep testing](StepII/mb24+/mb24+_sep.ipynb): ```jupyter notebook StepII/mb24+/mb24+_sep.ipynb```
+- [Oct testing](StepII/mb24+/mb24+_oct.ipynb): ```jupyter notebook StepII/mb24+/mb24+_oct.ipynb```
+- [Nov testing](StepII/mb24+/mb24+_nov.ipynb): ```jupyter notebook StepII/mb24+/mb24+_nov.ipynb```
+- [Dec testing](StepII/mb24+/mb24+_dec.ipynb): ```jupyter notebook StepII/mb24+/mb24+_dec.ipynb```
 
 
 ### Step III: Adaptation with Selected Pseudolabels
