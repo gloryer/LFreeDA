@@ -219,14 +219,71 @@ def load_matched_graphs(npz_path, pass_key, pred_key, true_label_key):
         if ds:
             #print(ds[0].y)
             matched.append(ds[0])
-        # else:
-        #     print(f"No graph representation for {img_path}")
-            
-                    
-        # print("\n")
+        else:
+            print(f"No graph representation for {img_path}")
 
-        # i += 1 
-        # if i == 5: 
-        #     break 
+
     return list_to_spektral_dataset(matched)
+
+
+
+
+class GraphData(Dataset):
+    
+
+    def __init__(self, cfg_path, **kwargs):
+        self.cfg_path = cfg_path
+
+        super().__init__(**kwargs)
+
+    def read(self):
+        
+        file_list = os.listdir(self.cfg_path)
+        file_list_x_y = list(filter(lambda x: '_sparse_matrix' not in x and '.npz' in x, file_list))
+        
+        #print(len(file_list_x_y))
+        output = []
+        
+        
+       
+        for filepath in file_list_x_y:
+
+            #full path of node attribute and label
+            fullpath = os.path.join(self.cfg_path, filepath)
+            #file path of adj matrix
+            filepath_sp = filepath.split('.')[0] + "_sparse_matrix.npz"
+            #full path pf adj matrix
+            fullpath_sp = os.path.join(self.cfg_path, filepath_sp)
+            #with open(fullpath_sp, 'rb') as f1:
+            sparse_matrix = sp.load_npz(fullpath_sp)
+            sparse_matrix = sparse_matrix.astype('float32')
+            
+            #this is new, if the sparse_matrix size is over 46000 by 46000 ,we skipped it since
+            # we are unable to allocate that much memory for an array with that shape 
+            if sparse_matrix.shape[0] > 46000: 
+                continue
+           
+            #with open(fullpath, 'rb') as f2:
+            data = np.load(fullpath)
+            
+            # Remove diagonal elements
+            adj = sparse_matrix - sp.dia_matrix((sparse_matrix.diagonal()[np.newaxis, :], [0]), shape=sparse_matrix.shape)
+            adj.eliminate_zeros()
+            # Check that diag is zero:
+            assert np.diag(adj.todense()).sum() == 0
+
+            adj_triu = sp.triu(adj)
+            adj_tuple = sparse_to_tuple(adj_triu)
+            edges = adj_tuple[0]
+            
+            
+            if data["x"].shape[0] >=10 and edges.shape[0] >= 3 and sparse_matrix.shape[0] <=46000:
+                output.append(Graph(x=data['x'], a= sparse_matrix, y=data['y']))
+                
+               
+          
+          
+
+        return output
+
 

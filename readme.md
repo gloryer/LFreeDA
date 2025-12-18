@@ -20,7 +20,7 @@ We provide the code for producing the performance metrics of Step I of LfreeDA o
 ### Step II: Pseudo-label Selection
 
 
-The Step II notebooks compute ACS scores for each outlier‐detection method with confidence filtering and report pseudo-label accuracy for three settings—without Step II, with confidence filtering only, and with confidence filtering plus outlier detection—matching the results shown in **Figure 6** of the paper.
+The Step II notebooks compute ACS scores for each outlier-detection method with confidence filtering. We report pseudo-label accuracy for three settings: (1) without Step II, (2) with confidence filtering only, and (3) with confidence filtering plus outlier detection (Step II). These results correspond to **Figure 6** in the paper.
 
 - [July testing](StepII/mb24+/mb24+_july.ipynb): *StepII/mb24+/mb24+_july.ipynb*
 - [Aug testing](StepII/mb24+/mb24+_aug.ipynb): *StepII/mb24+/mb24+_aug.ipynb*

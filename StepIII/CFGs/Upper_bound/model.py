@@ -1,11 +1,8 @@
-
-from tensorflow.keras.models import Model
+from tensorflow.keras import Model
+from tensorflow.keras.layers import Dense, Dropout
 from spektral.layers import GINConv, GlobalAvgPool
-import os
-from tensorflow.keras.layers import  Dense, Dropout
 from tensorflow.python.ops.numpy_ops import np_config
 np_config.enable_numpy_behavior()
-
 
 
 class GIN0(Model):
