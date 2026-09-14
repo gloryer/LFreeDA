@@ -180,3 +180,12 @@ if __name__ == "__main__":
         result = accuracy_score(target_y_test.argmax(1), y_target_class_pred)
 
         print("The test acc is {}".format(result))
+
+        # Uncomment below to save the trained Step I model. Saved under results/
+        # (not data/) so a from-scratch run never overwrites the precomputed
+        # data/stepI_trained_models/ shipped with this repo.
+        # save_dir = "../results/stepI_trained_models_scratch/mb24/aug"
+        # os.makedirs(save_dir, exist_ok=True)
+        # generator.save(os.path.join(save_dir, "generator"))
+        # classifier.save(os.path.join(save_dir, "classifier"))
+        # print("Saved Step I model to {}".format(save_dir))
