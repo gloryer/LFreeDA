@@ -41,3 +41,13 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
+
+# Large data files - not included in the repository, released separately via Zenodo (see README)
+data.tar.gz
+/data/graph_features/
+/data/image_features/
+/data/stepII_constructed_datasets/
+/data/stepI_trained_models/
+
+# Scratch outputs from running Step I/II/III from scratch
+/results/
