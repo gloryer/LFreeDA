@@ -51,7 +51,6 @@ By default, the notebook loads the trained Step I model directly from `data/step
 ### Step III: Adaptation with selected pseudo-labels (~7.9 hrs)
 By default, run each command below as-is — the Lower bound, Warm-start, and AdvDA variants already load from the precomputed `data/stepII_constructed_datasets/mb24/aug/`. The Upper bound variants use ground-truth labels directly and don't depend on Step II's output at all.
 
-(OPTIONAL) If you generated your own constructed dataset in Step II above, first edit the data-loading path near the top of the script you want to run, from the default `data/stepII_constructed_datasets/mb24/aug/...` to `results/stepII_constructed_datasets_scratch/mb24/aug/...`.
 
 Run each variant to reproduce the corresponding point in Figure 6:
 
@@ -65,6 +64,9 @@ Run each variant to reproduce the corresponding point in Figure 6:
 | AdvDA + GIN | `python StepIII/CFGs/AdvDA/train_mb24+_aug.py` | 232.6 min |
 | Upper bound (ResNet) | `python StepIII/Images/Upper_bound/train_mb24+_aug.py` | 13.4 min |
 | Upper bound (GIN) | `python StepIII/CFGs/Upper_bound/train_mb24+_aug.py` | 85.8 min |
+
+
+(OPTIONAL) If you generated your own constructed dataset in Step II above, first edit the data-loading path near the top of the script you want to run, from the default `data/stepII_constructed_datasets/mb24/aug/...` to `results/stepII_constructed_datasets_scratch/mb24/aug/...`.
 
 **Total estimated runtime: ~9 hours** (Step I + Step II + all Step III variants above).
 

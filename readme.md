@@ -10,7 +10,7 @@ We have successfully run the code with the following hardware:
 - GPU: NVIDIA RTX 4090 (24GB)
 - Memory: `<TODO: fill in>`
 
-Additionally, we recommend at least 200 GB of available disk space to store the data.
+Additionally, we recommend at least 300 GB of available disk space: downloading `data.tar.gz` (~117 GB) and extracting it (~149 GB) requires both to exist on disk at once. You can delete `data.tar.gz` afterward to free ~117 GB, leaving just the extracted `data/` folder (~149 GB).
 
 ## Installation
 
@@ -18,7 +18,7 @@ Please follow these steps to set up the environment:
 
 1. Download the data from Zenodo and place it under the current directory.
 2. Run `tar -xzvf data.tar.gz` to unpack the compressed file, and do not change the name of the extracted folder (the name should be `data/`).
-3. Run `pip install -r requirements.txt` to install the required packages.
+3. Using **Python 3.8** (required — `tensorflow==2.9.0` does not support Python 3.11+), run `pip install -r requirements.txt` to install the required packages.
 
 ## Artifact (Scaled-Down, For Artifact Evaluation)
 
@@ -75,8 +75,9 @@ By default, you can run the commands below as-is — the Lower bound, Warm-start
 
 **Repeat the same directory structure (replace `aug` with `sep`, `oct`, `nov`, `dec`) for the Sep, Oct, Nov, Dec testing.**
 
-## Data
-Due to size restrictions (~140 GB), the full `data/` folder cannot be included in this repository. It contains all the data needed (features, labels, and trained models) to reproduce our experiments and will be released upon paper acceptance.
+(OPTIONAL) If you generated your own constructed dataset in Step II above, first edit the data-loading path near the top of the script you want to run, from the default `data/stepII_constructed_datasets/mb24/{month}/...` to `results/stepII_constructed_datasets_scratch/mb24/{month}/...`.
+
+## Data (140GB)
 
 ```plaintext
 data/
