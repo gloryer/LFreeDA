@@ -2,6 +2,19 @@
 
 The official code for "LFreeDA: Label-Free Drift Adaptation in Windows Malware Detection", accepted by ACSAC 2026.
 
+## Table of Contents
+
+- [Hardware Specifications](#hardware-specifications)
+- [Installation](#installation)
+- [Artifact (Scaled-Down, For Artifact Evaluation)](#artifact-scaled-down-for-artifact-evaluation)
+- [Full Reproduction on MB-24+ (All Five Tasks)](#full-reproduction-on-mb-24-all-five-tasks--not-required-for-artifact-evaluation)
+  - [Step I: Pseudo-label Generation](#step-i-pseudo-label-generation)
+  - [Step II: Pseudo-label Selection](#step-ii-pseudo-label-selection)
+  - [Step III: Adaptation with Selected Pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels)
+- [Data](#data-140gb)
+- [MB-24+ Original Binaries](#mb-24-original-binaries)
+- [Citation](#citation)
+
 ## Hardware Specifications
 
 We have successfully run the code with the following hardware:
@@ -10,7 +23,7 @@ We have successfully run the code with the following hardware:
 - GPU: NVIDIA RTX 4090 (24GB)
 - Memory: `<TODO: fill in>`
 
-Additionally, we recommend at least 300 GB of available disk space: downloading `data.tar.gz` (~117 GB) and extracting it (~149 GB) requires both to exist on disk at once. You can delete `data.tar.gz` afterward to free ~117 GB, leaving just the extracted `data/` folder (~149 GB).
+Additionally, we recommend at least 300 GB of available disk space: downloading `data.tar.gz` (~117 GB) and extracting it (~149 GB) requires both to exist on disk at once.
 
 ## Installation
 
@@ -39,13 +52,17 @@ We provide the code for producing the performance metrics of Step I of LFreeDA o
 - [Nov testing](StepI/train_mb24+_nov.py): ```python StepI/train_mb24+_nov.py```
 - [Dec testing](StepI/train_mb24+_dec.py): ```python StepI/train_mb24+_dec.py```
 
-(Optional) Uncomment the save lines at the end of the script if you would like to save your own trained models to `results/stepI_trained_models_scratch/mb24/<month>/`.
+<details>
+<summary><strong>Optional: save your own trained model</strong></summary>
+
+Uncomment the save lines at the end of the script if you would like to save your own trained models to `results/stepI_trained_models_scratch/mb24/<month>/`.
+
+</details>
 
 ### Step II: Pseudo-label Selection
 Step II selects high-quality pseudo-labels from Step I's predictions, based on confidence filtering and outlier detection. We propose an Accuracy-Coverage Score (ACS) to evaluate five different outlier detection methods. The notebooks reproduce Table 6 (accuracy, coverage, and ACS for five outlier detection methods) and compute pseudo-label accuracy under two additional settings described in the paper (original / confidence filtering only). Each notebook reports these results for its own adaptation task; Figure 5 in the paper shows the average across all five tasks.
 
 By default, the notebooks load the trained Step I models directly from `data/stepI_trained_models/mb24/<month>/` — you can just run all cells. We've kept the cell outputs saved in the notebooks so you can compare against the expected results.
-
 
 - [Aug testing](StepII/mb24+/mb24+_aug.ipynb): ```jupyter notebook StepII/mb24+/mb24+_aug.ipynb```
 - [Sep testing](StepII/mb24+/mb24+_sep.ipynb): ```jupyter notebook StepII/mb24+/mb24+_sep.ipynb```
@@ -53,9 +70,13 @@ By default, the notebooks load the trained Step I models directly from `data/ste
 - [Nov testing](StepII/mb24+/mb24+_nov.ipynb): ```jupyter notebook StepII/mb24+/mb24+_nov.ipynb```
 - [Dec testing](StepII/mb24+/mb24+_dec.ipynb): ```jupyter notebook StepII/mb24+/mb24+_dec.ipynb```
 
-(Optional) To evaluate a different Step I model, point the model-loading cell at `results/stepI_trained_models_scratch/mb24/<month>/{generator,classifier}`.
+<details>
+<summary><strong>Optional: evaluate a different Step I model, or save the constructed datasets</strong></summary>
 
-(Optional) To also save the constructed datasets, uncomment the save block in the last cell — output goes to `results/stepII_constructed_datasets_scratch/mb24/<month>/`.
+- To evaluate a different Step I model, point the model-loading cell at `results/stepI_trained_models_scratch/mb24/<month>/{generator,classifier}`.
+- To also save the constructed datasets, uncomment the save block in the last cell — output goes to `results/stepII_constructed_datasets_scratch/mb24/<month>/`.
+
+</details>
 
 ### Step III: Adaptation with Selected Pseudo-labels
 
@@ -75,7 +96,12 @@ By default, you can run the commands below as-is — the Lower bound, Warm-start
 
 **Repeat the same directory structure (replace `aug` with `sep`, `oct`, `nov`, `dec`) for the Sep, Oct, Nov, Dec testing.**
 
-(OPTIONAL) If you generated your own constructed dataset in Step II above, first edit the data-loading path near the top of the script you want to run, from the default `data/stepII_constructed_datasets/mb24/{month}/...` to `results/stepII_constructed_datasets_scratch/mb24/{month}/...`.
+<details>
+<summary><strong>Optional: edit the data-loading path to use your own Step II output</strong></summary>
+
+If you generated your own constructed dataset in Step II above, first edit the data-loading path near the top of the script you want to run, from the default `data/stepII_constructed_datasets/mb24/{month}/...` to `results/stepII_constructed_datasets_scratch/mb24/{month}/...`.
+
+</details>
 
 ## Data (140GB)
 
@@ -111,4 +137,3 @@ If you use the code or dataset used here, please cite our paper:
   year      = {2026}
 }
 ```
-

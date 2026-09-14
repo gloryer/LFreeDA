@@ -1,10 +1,22 @@
 # LFreeDA Artifact (Scaled-Down)
 
+## Table of Contents
+
+- [Scope](#scope)
+- [What this artifact reproduces](#what-this-artifact-reproduces)
+- [Environment](#environment)
+- [Data required](#data-required)
+- [How to run](#how-to-run)
+  - [Step I: Pseudo-label generation](#step-i-pseudo-label-generation-37-min)
+  - [Step II: Pseudo-label selection](#step-ii-pseudo-label-selection-10-min)
+  - [Step III: Adaptation with selected pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels-79-hrs)
+- [Expected results](#expected-results)
+
 ## Scope
 
 This artifact provides a **scaled-down, fully reproducible demonstration of LFreeDA on a single adaptation task: July → August 2024**. The paper's full evaluation spans five rolling adaptation tasks (July→Aug, Aug→Sep, Sep→Oct, Oct→Nov, Nov→Dec), each taking ~9 hours end-to-end on a single GPU (see per-step breakdown below) — ~45 GPU-hours total, which isn't practical within a typical artifact evaluation window.
 
-Running this artifact fully reproduces one representative task and lets you independently verify the corresponding numbers reported in the paper. Code for all five tasks is in the main repository, documented in the top-level [readme.md](../readme.md) — provided for future research, but **not** part of this artifact's evaluation scope. 
+Running this artifact fully reproduces one representative task and lets you independently verify the corresponding numbers reported in the paper. Code for all five tasks is in the main repository, documented in the top-level [readme.md](../readme.md) — provided for future research, but **not** part of this artifact's evaluation scope.
 
 ## What this artifact reproduces
 
@@ -35,8 +47,12 @@ python StepI/train_mb24+_aug.py
 ```
 Trains the Step I model and reports test accuracy for the July→Aug task, corresponding to Figure 3.
 
-(Optional) The save block at the end of the script is commented out by default. Uncomment it if you'd also like to save the trained model to `results/stepI_trained_models_scratch/mb24/aug/`.
+<details>
+<summary><strong>Optional: save your own trained model</strong></summary>
 
+The save block at the end of the script is commented out by default. Uncomment it if you'd also like to save the trained model to `results/stepI_trained_models_scratch/mb24/aug/`.
+
+</details>
 
 ### Step II: Pseudo-label selection (~10 min)
 ```bash
@@ -44,13 +60,16 @@ jupyter notebook StepII/mb24+/mb24+_aug.ipynb
 ```
 By default, the notebook loads the trained Step I model directly from `data/stepI_trained_models/mb24/aug/`. You can just run all cells. This reproduces Table 6 (accuracy, coverage, and ACS for five outlier detection methods, July→Aug task) and computes pseudo-label accuracy under two additional settings described in the paper (original / confidence filtering only) — the setting Figure 5 in the paper reports as an average across all five tasks, so compare your July→Aug numbers against the reference values under [Expected results](#expected-results) rather than Figure 5 directly. We've kept the cell outputs saved in the notebook so you can compare against the expected results.
 
-(Optional) To evaluate a different Step I model, point the model-loading cell at `results/stepI_trained_models_scratch/mb24/aug/{generator,classifier}`.
+<details>
+<summary><strong>Optional: evaluate a different Step I model, or save the constructed datasets</strong></summary>
 
-(Optional) To also save the constructed datasets, uncomment the save block in the last cell — output goes to `results/stepII_constructed_datasets_scratch/mb24/aug/`.
+- To evaluate a different Step I model, point the model-loading cell at `results/stepI_trained_models_scratch/mb24/aug/{generator,classifier}`.
+- To also save the constructed datasets, uncomment the save block in the last cell — output goes to `results/stepII_constructed_datasets_scratch/mb24/aug/`.
+
+</details>
 
 ### Step III: Adaptation with selected pseudo-labels (~7.9 hrs)
 By default, run each command below as-is — the Lower bound, Warm-start, and AdvDA variants already load from the precomputed `data/stepII_constructed_datasets/mb24/aug/`. The Upper bound variants use ground-truth labels directly and don't depend on Step II's output at all.
-
 
 Run each variant to reproduce the corresponding point in Figure 6:
 
@@ -65,8 +84,12 @@ Run each variant to reproduce the corresponding point in Figure 6:
 | Upper bound (ResNet) | `python StepIII/Images/Upper_bound/train_mb24+_aug.py` | 13.4 min |
 | Upper bound (GIN) | `python StepIII/CFGs/Upper_bound/train_mb24+_aug.py` | 85.8 min |
 
+<details>
+<summary><strong>Optional: edit the data-loading path to use your own Step II output</strong></summary>
 
-(OPTIONAL) If you generated your own constructed dataset in Step II above, first edit the data-loading path near the top of the script you want to run, from the default `data/stepII_constructed_datasets/mb24/aug/...` to `results/stepII_constructed_datasets_scratch/mb24/aug/...`.
+If you generated your own constructed dataset in Step II above, first edit the data-loading path near the top of the script you want to run, from the default `data/stepII_constructed_datasets/mb24/aug/...` to `results/stepII_constructed_datasets_scratch/mb24/aug/...`.
+
+</details>
 
 **Total estimated runtime: ~9 hours** (Step I + Step II + all Step III variants above).
 
@@ -110,5 +133,3 @@ Pseudo-label accuracy under the three settings:
 
 > [!NOTE]
 > For Step I AND Step III, results across runs may vary slightly due to stochastic training.
-
-
