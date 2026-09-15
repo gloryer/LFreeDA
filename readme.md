@@ -79,7 +79,7 @@ By default, the notebooks load the trained Step I models directly from `data/ste
 <details>
 <summary><strong>Running these notebooks in VS Code</strong></summary>
 
-If you're sshed into a remote server or pod, the most convenient way to run these notebooks is to open the `.ipynb` file directly in the editor.
+Install the **Jupyter** extension (ms-toolsai.jupyter) in VS Code first. If you're sshed into a remote server or pod, the most convenient way to run these notebooks is to open the `.ipynb` file directly in the editor.
 Click **"Select Kernel"** (top right of the notebook) → **Python Environments** → pick the `lfreeda` conda env, then **Run All**.
 
 </details>
