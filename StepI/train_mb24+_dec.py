@@ -1,4 +1,6 @@
+import argparse
 import os
+import time
 import numpy as np
 import tensorflow as tf
 from sklearn.metrics import accuracy_score
@@ -14,6 +16,14 @@ from model import MaxDIrep
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--epochs", type=int, default=60,
+                         help="Number of training epochs (default: 60; the artifact "
+                              "evaluation uses --epochs 30 to save time)")
+    args = parser.parse_args()
+
+    start_time = time.time()
 
     print("Loading data ...")
 
@@ -163,7 +173,7 @@ if __name__ == "__main__":
     print("Source test: {}".format(source_y_test.shape))
 
     learning_rate_2 = 0.0001
-    epochs = 30  # Number of training epochs
+    epochs = args.epochs
     n_class = 2
     input_shape = source_x.shape[1]
 
@@ -171,7 +181,7 @@ if __name__ == "__main__":
         print("--------------------------{} run-------------------------".format(i))
 
         model = MaxDIrep(source_x_train, source_y_train, target_x_train, target_y_train,
-                        source_x_test, source_y_test, target_x_test, target_y_test, epochs=30)
+                        source_x_test, source_y_test, target_x_test, target_y_test, epochs=epochs)
 
         generator, classifier = model.train()
 
@@ -180,3 +190,6 @@ if __name__ == "__main__":
         result = accuracy_score(target_y_test.argmax(1), y_target_class_pred)
 
         print("The test acc is {}".format(result))
+
+        elapsed = time.time() - start_time
+        print("Total Step I runtime: {:.1f}s ({:.1f} min)".format(elapsed, elapsed / 60))

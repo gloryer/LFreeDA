@@ -43,9 +43,9 @@ We include these precomputed intermediate outputs so each step can be validated 
 
 ### Step I: Pseudo-label generation (~37 min)
 ```bash
-python StepI/train_mb24+_aug.py
+python StepI/train_mb24+_aug.py --epochs 30
 ```
-Trains the Step I model and reports test accuracy for the July→Aug task, corresponding to Figure 3.
+Trains the Step I model and reports test accuracy for the July→Aug task. 
 
 <details>
 <summary><strong>Optional: save your own trained model</strong></summary>

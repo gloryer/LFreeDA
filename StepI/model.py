@@ -36,8 +36,8 @@ class MaxDIrep(object):
     def __init__(self, x_source_train, y_source_train, 
                  x_target_train, y_target_train, 
                  x_source_test, y_source_test, 
-                 x_target_test, y_target_test, 
-                 epochs=90):
+                 x_target_test, y_target_test,
+                 epochs=60):
 
         #source train and test dataset
         self.x_source_train = x_source_train
