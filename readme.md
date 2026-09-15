@@ -31,7 +31,10 @@ Please follow these steps to set up the environment:
 
 1. Download the data from Zenodo and place it under the current directory.
 2. Run `tar -xzvf data.tar.gz` to unpack the compressed file, and do not change the name of the extracted folder (the name should be `data/`). Note: unpacking takes a while — around 50 minutes on the hardware listed above.
-3. Using **Python 3.8** (required — `tensorflow==2.9.0` does not support Python 3.11+), run `pip install -r requirements.txt` to install the required packages.
+3. Set up the environment:
+   - Run `bash setup_env.sh` — installs a self-contained Miniforge and the `lfreeda` conda environment, and verifies GPU support is detected.
+   - Open a new terminal, then activate it: `conda activate lfreeda`.
+   - When you're done and want to clean up, run `bash uninstall_env.sh` to remove both the `lfreeda` environment and the Miniforge install.
 
 ## Artifact (Scaled-Down, For Artifact Evaluation)
 
@@ -69,6 +72,19 @@ By default, the notebooks load the trained Step I models directly from `data/ste
 - [Oct testing](StepII/mb24+/mb24+_oct.ipynb): ```jupyter notebook StepII/mb24+/mb24+_oct.ipynb```
 - [Nov testing](StepII/mb24+/mb24+_nov.ipynb): ```jupyter notebook StepII/mb24+/mb24+_nov.ipynb```
 - [Dec testing](StepII/mb24+/mb24+_dec.ipynb): ```jupyter notebook StepII/mb24+/mb24+_dec.ipynb```
+
+<details>
+<summary><strong>Running these notebooks in VS Code over SSH (e.g. on a rented GPU pod)</strong></summary>
+
+If you're sshed into a remote server or pod, the most convenient way to run these notebooks is via VS Code's remote tooling rather than a manually tunneled `jupyter notebook` server:
+
+1. Locally, install the **Remote - SSH** and **Jupyter** (ms-toolsai.jupyter) extensions in VS Code (the Python extension is pulled in automatically).
+2. **Command Palette → "Remote-SSH: Connect to Host…"**, then enter the pod's SSH details. VS Code opens a full remote window — file explorer, terminal, and extensions all run on the pod itself.
+3. In the remote terminal, set up the environment once (see [Installation](#installation) above): `bash setup_env.sh`.
+4. Open the `.ipynb` file directly in the editor. VS Code's Jupyter extension runs the kernel as a process on the pod, so there's no manual port-forwarding or copying a token URL.
+5. Click **"Select Kernel"** (top right of the notebook) → **Python Environments** → pick the `lfreeda` conda env, then **Run All**.
+
+</details>
 
 <details>
 <summary><strong>Optional: evaluate a different Step I model, or save the constructed datasets</strong></summary>
