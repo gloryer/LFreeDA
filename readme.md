@@ -76,15 +76,10 @@ By default, the notebooks load the trained Step I models directly from `data/ste
 If you're using VS Code (including over SSH), skip the command above — see the note right below instead.
 
 <details>
-<summary><strong>Running these notebooks in VS Code over SSH (e.g. on a rented GPU pod)</strong></summary>
+<summary><strong>Running these notebooks in VS Code</strong></summary>
 
-If you're sshed into a remote server or pod, the most convenient way to run these notebooks is via VS Code's remote tooling rather than a manually tunneled `jupyter notebook` server:
-
-1. Locally, install the **Remote - SSH** and **Jupyter** (ms-toolsai.jupyter) extensions in VS Code (the Python extension is pulled in automatically).
-2. **Command Palette → "Remote-SSH: Connect to Host…"**, then enter the pod's SSH details. VS Code opens a full remote window — file explorer, terminal, and extensions all run on the pod itself.
-3. In the remote terminal, set up the environment once (see [Installation](#installation) above): `bash setup_env.sh`.
-4. Open the `.ipynb` file directly in the editor. VS Code's Jupyter extension runs the kernel as a process on the pod, so there's no manual port-forwarding or copying a token URL.
-5. Click **"Select Kernel"** (top right of the notebook) → **Python Environments** → pick the `lfreeda` conda env, then **Run All**.
+If you're sshed into a remote server or pod, the most convenient way to run these notebooks is to open the `.ipynb` file directly in the editor.
+Click **"Select Kernel"** (top right of the notebook) → **Python Environments** → pick the `lfreeda` conda env, then **Run All**.
 
 </details>
 
