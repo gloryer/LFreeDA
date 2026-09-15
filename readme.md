@@ -73,7 +73,7 @@ By default, the notebooks load the trained Step I models directly from `data/ste
 - [Nov testing](StepII/mb24+/mb24+_nov.ipynb): ```jupyter notebook StepII/mb24+/mb24+_nov.ipynb```
 - [Dec testing](StepII/mb24+/mb24+_dec.ipynb): ```jupyter notebook StepII/mb24+/mb24+_dec.ipynb```
 
-> [!IMPORTANT]
+> [!TIP]
 > If you're using VS Code (including over SSH), skip the command above — see the note right below instead.
 
 <details>
