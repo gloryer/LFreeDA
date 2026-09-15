@@ -68,7 +68,8 @@ Loads `data/stepI_trained_models/mb24/aug/` (the same model Step II uses by defa
 ```bash
 jupyter notebook StepII/mb24+/mb24+_aug.ipynb
 ```
-(If you're using VS Code, including over SSH, open the `.ipynb` directly in the editor instead — see the main [readme.md](../readme.md#step-ii-pseudo-label-selection) for that workflow.)
+If you're using VS Code (including over SSH), skip the command above — open the `.ipynb` file directly in the editor.
+Click **"Select Kernel"** (top right of the notebook) → **Python Environments** → pick the `lfreeda` conda env, then **Run All**.
 
 By default, the notebook loads the trained Step I model directly from `data/stepI_trained_models/mb24/aug/`. You can just run all cells. This reproduces Table 6 (accuracy, coverage, and ACS for five outlier detection methods, July→Aug task) and computes pseudo-label accuracy under two additional settings described in the paper (original / confidence filtering only) — the setting Figure 5 in the paper reports as an average across all five tasks, so compare your July→Aug numbers against the reference values under [Expected results](#expected-results) rather than Figure 5 directly. We've kept the cell outputs saved in the notebook so you can compare against the expected results.
 
