@@ -7,7 +7,7 @@
 - [Environment](#environment)
 - [Data required](#data-required)
 - [How to run](#how-to-run)
-  - [Step I: Pseudo-label generation](#step-i-pseudo-label-generation-37-min)
+  - [Step I: Pseudo-label generation](#step-i-pseudo-label-generation-9-min)
   - [Step II: Pseudo-label selection](#step-ii-pseudo-label-selection-10-min)
   - [Step III: Adaptation with selected pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels-79-hrs)
 - [Expected results](#expected-results)
@@ -41,7 +41,7 @@ We include these precomputed intermediate outputs so each step can be validated 
 
 ## How to run
 
-### Step I: Pseudo-label generation (~37 min)
+### Step I: Pseudo-label generation (~9 min)
 ```bash
 python StepI/train_mb24+_aug.py --epochs 30
 ```
@@ -104,6 +104,9 @@ Look at the last printed epoch block (`Epoch: 30`) and compare its `Acc test tar
 | `Acc test target:` | 80.8 |
 | `Macro F1 test target:` | 77.7 |
 
+> [!NOTE]
+> Results vary run-to-run due to stochastic training, and can also fluctuate noticeably epoch-to-epoch within a single run — this is expected, since Step I trains a generator/classifier against a domain discriminator in a minimax game (see `StepI/model.py`), which is inherently less stable than plain supervised training. Compare against the last epoch's values as described above rather than expecting monotonic convergence.
+
 ### Step II (Table 6, Aug testing)
 
 Pseudo-label accuracy under the three settings:
@@ -134,4 +137,4 @@ Pseudo-label accuracy under the three settings:
 | Upper bound (GIN) | 84.2 | 82.5 |
 
 > [!NOTE]
-> For Step I AND Step III, results across runs may vary slightly due to stochastic training.
+> Results across runs may vary slightly due to stochastic training.

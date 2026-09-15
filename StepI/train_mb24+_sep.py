@@ -141,10 +141,9 @@ if __name__ == "__main__":
     source_x_train, source_x_test, source_y_train, source_y_test = train_test_split(source_x, source_y, test_size=0.25, random_state=42)
 
     print("train test data ...")
-    print("(Source = labeled malware+benign data from the fixed source months (Mar-May), used for supervised training.")
-    print(" Target train = the month right before this task's test month; used *unlabeled* here for domain adaptation")
-    print(" (its labels are loaded but discarded during training, see StepI/model.py).")
-    print(" Target test = this task's actual test month, held out to measure generalization to the target domain.)")
+    print("  Source       = malware+benign from Mar/Apr/May (labeled), used for supervised training")
+    print("  Target train = Aug malware+benign (labels discarded; used *unlabeled* for domain adaptation, see StepI/model.py)")
+    print("  Target test  = Sep malware+benign (held out; this task's evaluation target)")
     print("Target train: {}".format(target_x_train.shape))
     print("Target train: {}".format(target_y_train.shape))
     print("Target test: {}".format(target_x_test.shape))

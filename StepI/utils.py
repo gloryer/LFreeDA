@@ -65,7 +65,8 @@ def _load_one_normal_image(args):
                 img = img.resize((56, 56), Image.LANCZOS)
                 return np.array(img, dtype=int)
             else:
-                print(f"Image {filename} exceeds the size limit of {image_size_limit} pixels and will be skipped.")
+                # Silently skip oversized images (still skipped, just not logged).
+                pass
                 return None
     except (Image.DecompressionBombError, OSError) as e:
         print(f"Error loading image {filename}: {e}")
