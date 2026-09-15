@@ -68,6 +68,8 @@ Loads `data/stepI_trained_models/mb24/aug/` (the same model Step II uses by defa
 ```bash
 jupyter notebook StepII/mb24+/mb24+_aug.ipynb
 ```
+(If you're using VS Code, including over SSH, open the `.ipynb` directly in the editor instead — see the main [readme.md](../readme.md#step-ii-pseudo-label-selection) for that workflow.)
+
 By default, the notebook loads the trained Step I model directly from `data/stepI_trained_models/mb24/aug/`. You can just run all cells. This reproduces Table 6 (accuracy, coverage, and ACS for five outlier detection methods, July→Aug task) and computes pseudo-label accuracy under two additional settings described in the paper (original / confidence filtering only) — the setting Figure 5 in the paper reports as an average across all five tasks, so compare your July→Aug numbers against the reference values under [Expected results](#expected-results) rather than Figure 5 directly. We've kept the cell outputs saved in the notebook so you can compare against the expected results.
 
 <details>
@@ -124,17 +126,17 @@ Look at the last printed epoch block (`Epoch: 30`) and compare its values agains
 
 Pseudo-label accuracy under the three settings:
 
-- **(1) Original (Step I only)**: 80.74% accuracy
-- **(2) Confidence filtering only**: 87.55% accuracy
+- **(1) Original (Step I only)**: 81.16% accuracy
+- **(2) Confidence filtering only**: 87.51% accuracy
 - **(3) Confidence + outlier detection**, by method:
 
 | Method | Accuracy | Coverage | ACS (Avg) |
 |---|---|---|---|
-| Local Outlier Factor (LOF) | 89.07 | 61.9 | 75.5 |
-| GMM | 88.85 | 59.2 | 74.0 |
-| One-Class SVM | 88.82 | 59.1 | 74.0 |
-| Mahalanobis | 88.94 | 57.1 | 73.0 |
-| Isolation Forest | 88.47 | 59.1 | 73.8 |
+| Local Outlier Factor (LOF) | 89.17 | 61.9 | 75.5 |
+| GMM | 88.56 | 59.0 | 73.8 |
+| One-Class SVM | 88.59 | 58.9 | 73.7 |
+| Mahalanobis | 88.74 | 56.8 | 72.8 |
+| Isolation Forest | 88.33 | 58.9 | 73.6 |
 
 ### Step III (Figure 6, Aug testing)
 
