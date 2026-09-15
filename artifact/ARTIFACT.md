@@ -115,7 +115,7 @@ Look at the last printed epoch block (`Epoch: 30`) and compare its values agains
 | `Macro F1 test target:` | 77.7 |
 
 > [!NOTE]
-> - `python StepI/evaluate_pretrained_aug.py` confirms these values deterministically (no training) — within about a point.
+> - `python StepI/evaluate_pretrained_aug.py` confirms these values deterministically (no training). 
 > - Training from scratch (`--epochs 30`) is a faster, scaled-down check that the pipeline works, not a guaranteed exact match to that specific model.
 > - Step I trains a generator/classifier against a domain discriminator in a minimax game (see `StepI/model.py`), so from-scratch results fluctuate run-to-run and epoch-to-epoch rather than converging monotonically.
 > - Values within about **±2 points** of the expected values above count as a successful reproduction.
