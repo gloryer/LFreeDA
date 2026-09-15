@@ -19,9 +19,9 @@ The official code for "LFreeDA: Label-Free Drift Adaptation in Windows Malware D
 
 We have successfully run the code with the following hardware:
 
-- CPU: `<TODO: fill in>`
+- CPU: AMD Ryzen 9 7950X (16 cores / 32 threads)
 - GPU: NVIDIA RTX 4090 (24GB)
-- Memory: `<TODO: fill in>`
+- Memory: 125GB RAM
 
 Additionally, we recommend at least 300 GB of available disk space: downloading `data.tar.gz` (~117 GB) and extracting it (~149 GB) requires both to exist on disk at once.
 
