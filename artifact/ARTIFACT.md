@@ -55,7 +55,7 @@ The save block at the end of the script is commented out by default. Uncomment i
 </details>
 
 <details>
-<summary><strong>Optional: evaluate the precomputed model directly (no training, deterministic)</strong></summary>
+<summary><strong>Optional: evaluate the trained model directly (no training, deterministic)</strong></summary>
 
 ```bash
 python StepI/evaluate_pretrained_aug.py
@@ -115,7 +115,10 @@ Look at the last printed epoch block (`Epoch: 30`) and compare its values agains
 | `Macro F1 test target:` | 77.7 |
 
 > [!NOTE]
-> These values come from our precomputed model at `data/stepI_trained_models/mb24/aug/` (the one Step II loads by default). Running `python StepI/evaluate_pretrained_aug.py` confirms this deterministically: it reproduces Macro F1 almost exactly and accuracy within about a point, with no training involved. Training Step I from scratch here (`--epochs 30`) is instead a faster, scaled-down experiment to verify the training pipeline itself works, not a guaranteed exact match to that specific model: Step I trains a generator/classifier against a domain discriminator in a minimax game (see `StepI/model.py`), so from-scratch results fluctuate run-to-run and epoch-to-epoch rather than converging monotonically. Values within about **±2 points** of the expected values above count as a successful reproduction; we compare at the last epoch specifically, to keep the comparison methodologically sound.
+> - `python StepI/evaluate_pretrained_aug.py` confirms these values deterministically (no training) — within about a point.
+> - Training from scratch (`--epochs 30`) is a faster, scaled-down check that the pipeline works, not a guaranteed exact match to that specific model.
+> - Step I trains a generator/classifier against a domain discriminator in a minimax game (see `StepI/model.py`), so from-scratch results fluctuate run-to-run and epoch-to-epoch rather than converging monotonically.
+> - Values within about **±2 points** of the expected values above count as a successful reproduction.
 
 ### Step II (Table 6, Aug testing)
 
