@@ -68,8 +68,8 @@ Loads `data/stepI_trained_models/mb24/aug/` (the same model Step II uses by defa
 ```bash
 jupyter notebook StepII/mb24+/mb24+_aug.ipynb
 ```
-> [!TIP]
-> 💡 If you're using VS Code (including over SSH), skip the command above — open the `.ipynb` file directly in the editor.
+> [!IMPORTANT]
+> If you're using VS Code (including over SSH), skip the command above — open the `.ipynb` file directly in the editor.
 > Click **"Select Kernel"** (top right of the notebook) → **Python Environments** → pick the `lfreeda` conda env, then **Run All**.
 
 By default, the notebook loads the trained Step I model directly from `data/stepI_trained_models/mb24/aug/`. You can just run all cells.
