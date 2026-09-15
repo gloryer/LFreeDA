@@ -30,7 +30,7 @@ Additionally, we recommend at least 300 GB of available disk space: downloading 
 Please follow these steps to set up the environment:
 
 1. Download the data from Zenodo and place it under the current directory.
-2. Run `tar -xzvf data.tar.gz` to unpack the compressed file, and do not change the name of the extracted folder (the name should be `data/`).
+2. Run `tar -xzvf data.tar.gz` to unpack the compressed file, and do not change the name of the extracted folder (the name should be `data/`). Note: unpacking takes a while — around 50 minutes on the hardware listed above.
 3. Using **Python 3.8** (required — `tensorflow==2.9.0` does not support Python 3.11+), run `pip install -r requirements.txt` to install the required packages.
 
 ## Artifact (Scaled-Down, For Artifact Evaluation)
