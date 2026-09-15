@@ -97,10 +97,12 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 ### Step I (Figure 3, Aug testing)
 
-| Metric | Value |
+Look at the last printed epoch block (`Epoch: 30`) and compare its `Acc test target:` and `Macro F1 test target:` values against:
+
+| Printed metric | Expected value |
 |---|---|
-| Accuracy | 80.8 |
-| F1 | 77.7 |
+| `Acc test target:` | 80.8 |
+| `Macro F1 test target:` | 77.7 |
 
 ### Step II (Table 6, Aug testing)
 
