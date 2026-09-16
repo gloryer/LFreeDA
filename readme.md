@@ -1,6 +1,6 @@
-# LFreeDA: Label-Free Drift Adaptation in Windows Malware Detection
+# LFreeDA: Label-Free Drift Adaptation for Windows Malware Detection
 
-The official code for "LFreeDA: Label-Free Drift Adaptation in Windows Malware Detection", accepted by ACSAC 2026.
+The official code for "LFreeDA: Label-Free Drift Adaptation for Windows Malware Detection", accepted by ACSAC 2026.
 
 ## Table of Contents
 
