@@ -28,20 +28,6 @@ if __name__ == "__main__":
 
     source_x_train, source_y_train = load_image(source_path_train, source_y_train  )
 
-
-    uniq, cnts = np.unique(source_y_train, return_counts=True)
-    num_classes = len(uniq)
-    counts = np.zeros(num_classes, dtype=int)
-
-    counts[uniq] = cnts
-
-    for cls, cnt in enumerate(counts):
-        print(f"Class {cls}: {cnt} samples")
-
-    print("Loaded source_x shape:", source_x_train.shape)
-    print("Loaded source_y shape:", source_y_train.shape)
-
-
     #  Load source test data
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/sep/source_test.npz', allow_pickle=True)
     source_path_test = data['source_path_test']   # shape (N,), dtype object
@@ -49,82 +35,31 @@ if __name__ == "__main__":
 
     source_x_test, source_y_test = load_image(source_path_test, source_y_test)
 
-
-    uniq, cnts = np.unique(source_y_test, return_counts=True)
-    num_classes = len(uniq)
-    counts = np.zeros(num_classes, dtype=int)
-
-    counts[uniq] = cnts
-
-
-    for cls, cnt in enumerate(counts):
-        print(f"Class {cls}: {cnt} samples")
-
-
-    print("Loaded source_x shape:", source_x_test.shape)
-    print("Loaded source_y shape:", source_y_test.shape)
-
-
     #  Load selected target train data with pseudo-labels
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/sep/target_train_filtered.npz', allow_pickle=True)
     target_path_train_filtered = data['target_path_train_filtered']   # shape (N,), dtype object
     target_pred_train_filtered    = data['target_pred_train_filtered']      # shape (N,)
 
-
     target_x_train_filtered, target_y_train_filtered  = load_image(target_path_train_filtered,target_pred_train_filtered)
-
-
-    uniq, cnts = np.unique(target_pred_train_filtered, return_counts=True)
-    num_classes = len(uniq)
-    counts = np.zeros(num_classes, dtype=int)
-
-    counts[uniq] = cnts
-
-    for cls, cnt in enumerate(counts):
-        print(f"Class {cls}: {cnt} samples")
-
-
-    print("Loaded target_x_train_filtered shape:", target_x_train_filtered.shape)
-    print("Loaded target_y_train_filtered shape:", target_y_train_filtered.shape)
-
 
     #  Load target test data
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/sep/target_test.npz', allow_pickle=True)
     target_path_test = data['target_path_test']   # shape (N,), dtype object
     target_y_test = data['target_y_test']      # shape (N,)
 
-
     target_x_test, target_y_test  = load_image(target_path_test, target_y_test)
 
-    uniq, cnts = np.unique(target_y_test, return_counts=True)
-    num_classes = len(uniq)
-    counts = np.zeros(num_classes, dtype=int)
-
-    counts[uniq] = cnts
-
-    for cls, cnt in enumerate(counts):
-        print(f"Class {cls}: {cnt} samples")
-
-
-    print("Loaded target_x_test shape:", target_x_test.shape)
-    print("Loaded target_y_test shape:", target_y_test.shape)
-
+    num_classes = len(np.unique(target_y_test))
 
     source_y_train = tf.keras.utils.to_categorical(source_y_train, num_classes=num_classes)
     source_y_test = tf.keras.utils.to_categorical(source_y_test, num_classes=num_classes)
     target_y_train_filtered = tf.keras.utils.to_categorical(target_y_train_filtered, num_classes=num_classes)
     target_y_test = tf.keras.utils.to_categorical(target_y_test, num_classes=num_classes)
 
-
     #learning_rate_1 = 1e-3  # Learning rate
     learning_rate_2 = 0.0001
     epochs = args.epochs
     n_class = 2
-
-
-
-
-
 
     for i in range(1):
         print("--------------------------{} run-------------------------".format(i))
@@ -142,5 +77,4 @@ if __name__ == "__main__":
 
         elapsed = time.time() - start_time
         print("Total runtime: {:.1f}s ({:.1f} min)".format(elapsed, elapsed / 60))
-
 
