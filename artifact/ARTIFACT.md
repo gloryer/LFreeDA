@@ -154,7 +154,7 @@ Pseudo-label accuracy under the three settings:
 | Method | Accuracy | F1 | Reproduced Accuracy | Reproduced F1 |
 |---|---|---|---|---|
 | Lower bound (ResNet) | 75.7 | 72.1 | 76.7 | 73.2 |
-| Lower bound (GIN) | 71.3 | 70.8 | 62.0 | 62.0 |
+| Lower bound (GIN) | 71.3 | 70.8 | 67.9 | 67.5 |
 | Warm-start ResNet-50 | 80.0 | 76.9 | — | — |
 | Warm-start GIN | 77.2 | 75.1 | — | — |
 | AdvDA + CNN | 81.8 | 77.9 | — | — |
