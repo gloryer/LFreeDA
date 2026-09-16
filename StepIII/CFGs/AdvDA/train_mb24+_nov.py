@@ -1,4 +1,5 @@
 import argparse
+import time
 from spektral.data import DisjointLoader
 from tensorflow.keras import layers
 
@@ -22,6 +23,7 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=60,
                          help="Number of training epochs (default: 60)")
     args = parser.parse_args()
+    start_time = time.time()
 
     #Load source train data
     path = '../../../data/stepII_constructed_datasets/mb24/nov/source_train.npz'
@@ -97,3 +99,6 @@ if __name__ == "__main__":
         f1_weighted = f1_score(all_trues, all_preds, average='weighted')
         f1_macro    = f1_score(all_trues, all_preds, average='macro')
         print("Done. Test weighted F1: {:.4f}, macro F1: {:.4f}".format(f1_weighted, f1_macro))
+
+        elapsed = time.time() - start_time
+        print("Total runtime: {:.1f}s ({:.1f} min)".format(elapsed, elapsed / 60))

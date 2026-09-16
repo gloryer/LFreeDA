@@ -1,5 +1,6 @@
 import argparse
 import os
+import time
 from pathlib import Path
 import sys
 
@@ -23,6 +24,7 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=60,
                          help="Number of training epochs (default: 60)")
     args = parser.parse_args()
+    start_time = time.time()
 
     # Load source train data
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/nov/source_train.npz', allow_pickle=True)
@@ -131,3 +133,6 @@ if __name__ == "__main__":
             print("[sklearn] Confusion matrix:\n", cm)
         except Exception as e:
             print("sklearn check skipped:", e)
+
+        elapsed = time.time() - start_time
+        print("Total runtime: {:.1f}s ({:.1f} min)".format(elapsed, elapsed / 60))

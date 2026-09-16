@@ -7,7 +7,7 @@
 - [Environment](#environment)
 - [Data required](#data-required)
 - [How to run](#how-to-run)
-  - [Step I: Pseudo-label generation](#step-i-pseudo-label-generation-9-min)
+  - [Step I: Pseudo-label generation](#step-i-pseudo-label-generation-122-min)
   - [Step II: Pseudo-label selection](#step-ii-pseudo-label-selection-5-min)
   - [Step III: Adaptation with selected pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels-57-hrs)
 - [Expected results](#expected-results)
@@ -41,7 +41,7 @@ We include these precomputed intermediate outputs so each step can be validated 
 
 ## How to run
 
-### Step I: Pseudo-label generation (~9 min)
+### Step I: Pseudo-label generation (~12.2 min)
 ```bash
 python StepI/train_mb24+_aug.py --epochs 30
 ```
@@ -114,7 +114,7 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 </details>
 
-**Total estimated runtime: ~5.9 hours** (Step I + Step II + all Step III variants above).
+**Total estimated runtime: ~6.0 hours** (Step I + Step II + all Step III variants above).
 
 ## Expected results
 

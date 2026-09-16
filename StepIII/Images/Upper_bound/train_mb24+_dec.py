@@ -1,5 +1,6 @@
 import argparse
 import os
+import time
 import numpy as np
 import tensorflow as tf
 
@@ -26,6 +27,7 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=60,
                          help="Number of training epochs (default: 60)")
     args = parser.parse_args()
+    start_time = time.time()
 
     label_path = "../../../data/labels/mb24/March/march_malware.csv"
     img_path = "../../../data/image_features/mb24/march/march"
@@ -209,3 +211,6 @@ if __name__ == "__main__":
         print("Evaluate on test data")
         results = model.evaluate(target_x_test, target_y_test, batch_size=16)
         print("test loss, test acc, test f1:", results)
+
+        elapsed = time.time() - start_time
+        print("Total runtime: {:.1f}s ({:.1f} min)".format(elapsed, elapsed / 60))

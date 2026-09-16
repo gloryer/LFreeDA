@@ -1,5 +1,6 @@
 import argparse
 import os
+import time
 import numpy as np
 import tensorflow as tf
 import sys
@@ -18,6 +19,7 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=60,
                          help="Number of training epochs (default: 60)")
     args = parser.parse_args()
+    start_time = time.time()
 
     #  Load source train data
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/nov/source_train.npz', allow_pickle=True)
@@ -137,5 +139,8 @@ if __name__ == "__main__":
         result = accuracy_score(target_y_test.argmax(1), y_target_class_pred)
 
         print("The test acc is {}".format(result))
+
+        elapsed = time.time() - start_time
+        print("Total runtime: {:.1f}s ({:.1f} min)".format(elapsed, elapsed / 60))
 
 

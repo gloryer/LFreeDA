@@ -1,5 +1,6 @@
 import argparse
 import os
+import time
 from pathlib import Path
 import sys
 
@@ -28,6 +29,7 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=60,
                          help="Number of training epochs (default: 60)")
     args = parser.parse_args()
+    start_time = time.time()
 
     # Get project root directory
     project_root = Path(__file__).parent.parent.parent.parent
@@ -97,6 +99,9 @@ if __name__ == "__main__":
     print(f"Test loss: {results[0]:.4f}")
     print(f"Test accuracy: {results[1]:.4f}")
     print(f"Test macro F1: {results[2]:.4f}")
+
+    elapsed = time.time() - start_time
+    print("Total runtime: {:.1f}s ({:.1f} min)".format(elapsed, elapsed / 60))
 
 
 

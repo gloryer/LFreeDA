@@ -1,4 +1,5 @@
 import argparse
+import time
 
 from spektral.data import DisjointLoader
 from tensorflow.keras import layers  # type: ignore
@@ -19,6 +20,7 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=60,
                          help="Number of training epochs (default: 60)")
     args = parser.parse_args()
+    start_time = time.time()
 
     ################################################################################
     # Config
@@ -67,6 +69,9 @@ if __name__ == "__main__":
         print("Testing model")
         loss, acc, f1 = model.evaluate(loader_te.load(), steps=loader_te.steps_per_epoch)
         print("Done. Test loss: {}. Test acc: {}. Test f1 {}".format(loss, acc, f1))
+
+        elapsed = time.time() - start_time
+        print("Total runtime: {:.1f}s ({:.1f} min)".format(elapsed, elapsed / 60))
 
 
 

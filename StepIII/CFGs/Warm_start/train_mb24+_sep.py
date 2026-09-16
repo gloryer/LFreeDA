@@ -12,6 +12,7 @@ from Utils.utils import encode, MacroF1
 from AdvDA.model import AdvDA_GIN, GIN0
 
 import argparse
+import time
 from sklearn.metrics import f1_score
 import numpy as np
 
@@ -23,6 +24,7 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=60,
                          help="Number of training epochs (default: 60)")
     args = parser.parse_args()
+    start_time = time.time()
 
     #Load source train data
     path = '../../../data/stepII_constructed_datasets/mb24/sep/source_train.npz'
@@ -116,5 +118,8 @@ if __name__ == "__main__":
         print("Testing model")
         loss, acc, f1 = model.evaluate(loader_te.load(), steps=loader_te.steps_per_epoch)
         print("Done. Test loss: {}. Test acc: {}. Test f1 {}".format(loss, acc, f1))
+
+        elapsed = time.time() - start_time
+        print("Total runtime: {:.1f}s ({:.1f} min)".format(elapsed, elapsed / 60))
 
 
