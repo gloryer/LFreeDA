@@ -54,9 +54,6 @@ if __name__ == "__main__":
     target_y_test = target_data['target_y_test']
     target_x_test, target_y_test = load_image(target_path_test, target_y_test)
 
-    print("Source train: {}".format(source_x_train.shape))
-    print("Target test:  {}".format(target_x_test.shape))
-
     # Convert labels to categorical
     source_y_train = tf.keras.utils.to_categorical(source_y_train, num_classes=2)
     target_y_test = tf.keras.utils.to_categorical(target_y_test, num_classes=2)
