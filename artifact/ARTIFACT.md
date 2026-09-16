@@ -9,7 +9,7 @@
 - [How to run](#how-to-run)
   - [Step I: Pseudo-label generation](#step-i-pseudo-label-generation-122-min)
   - [Step II: Pseudo-label selection](#step-ii-pseudo-label-selection-5-min)
-  - [Step III: Adaptation with selected pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels-57-hrs)
+  - [Step III: Adaptation with selected pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels-51-hrs)
 - [Expected results](#expected-results)
 
 ## Scope
@@ -90,7 +90,7 @@ We've kept the cell outputs saved in the notebook so you can compare against the
 
 </details>
 
-### Step III: Adaptation with selected pseudo-labels (~5.7 hrs)
+### Step III: Adaptation with selected pseudo-labels (~5.1 hrs)
 By default, run each command below as-is — the Lower bound, Warm-start, and AdvDA variants already load from the precomputed `data/stepII_constructed_datasets/mb24/aug/`. The Upper bound variants use ground-truth labels directly and don't depend on Step II's output at all.
 
 Run each command to train the step III models and reports test accuracy for the July→Aug task. 
@@ -98,7 +98,7 @@ Run each command to train the step III models and reports test accuracy for the 
 | Method | Command | Approx. runtime (`--epochs 20`) |
 |---|---|---|
 | Lower bound (ResNet) | `python StepIII/Images/Lower_bound/train_mb24+_aug.py --epochs 20` | 2.4 min |
-| Lower bound (GIN) | `python StepIII/CFGs/Lower_bound/train_mb24+_aug.py --epochs 20` | 57.4 min |
+| Lower bound (GIN) | `python StepIII/CFGs/Lower_bound/train_mb24+_aug.py --epochs 20` | 24.1 min |
 | Warm-start ResNet-50 | `python StepIII/Images/Warm_start/train_mb24+_aug.py --epochs 20` | 11.8 min |
 | Warm-start GIN | `python StepIII/CFGs/Warm_start/train_mb24+_aug.py --epochs 20` | 72.6 min |
 | AdvDA + CNN | `python StepIII/Images/AdvDA/train_mb24+_aug.py --epochs 20` | ~13.8 min |
@@ -114,7 +114,7 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 </details>
 
-**Total estimated runtime: ~6.0 hours** (Step I + Step II + all Step III variants above).
+**Total estimated runtime: ~5.4 hours** (Step I + Step II + all Step III variants above).
 
 ## Expected results
 
@@ -154,7 +154,7 @@ Pseudo-label accuracy under the three settings:
 | Method | Accuracy | F1 | Reproduced Accuracy | Reproduced F1 |
 |---|---|---|---|---|
 | Lower bound (ResNet) | 75.7 | 72.1 | 76.7 | 73.2 |
-| Lower bound (GIN) | 71.3 | 70.8 | — | — |
+| Lower bound (GIN) | 71.3 | 70.8 | 62.0 | 62.0 |
 | Warm-start ResNet-50 | 80.0 | 76.9 | — | — |
 | Warm-start GIN | 77.2 | 75.1 | — | — |
 | AdvDA + CNN | 81.8 | 77.9 | — | — |

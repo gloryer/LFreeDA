@@ -49,9 +49,6 @@ if __name__ == "__main__":
     for i in range(1):
         print("--------------------------{} run-------------------------".format(i))
 
-        print("Source training set size is {}".format(len(source_train)))
-        print("Target testing set size is {}".format(len(target_test)))
-
         loader_tr_source = DisjointLoader(source_train, batch_size=batch_size)
         loader_te = DisjointLoader(target_test, batch_size=batch_size)
 

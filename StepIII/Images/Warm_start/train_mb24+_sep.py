@@ -1,6 +1,5 @@
 import argparse
 import os
-import time
 from pathlib import Path
 import sys
 
@@ -24,7 +23,6 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=60,
                          help="Number of training epochs (default: 60)")
     args = parser.parse_args()
-    start_time = time.time()
 
     # Load source train data
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/sep/source_train.npz', allow_pickle=True)
@@ -32,29 +30,11 @@ if __name__ == "__main__":
     source_y_train = data['source_y_train']
     source_x_train, source_y_train = load_image(source_path_train, source_y_train)
 
-    uniq, cnts = np.unique(source_y_train, return_counts=True)
-    num_classes = len(uniq)
-    counts = np.zeros(num_classes, dtype=int)
-    counts[uniq] = cnts
-    for cls, cnt in enumerate(counts):
-        print(f"Class {cls}: {cnt} samples")
-    print("Loaded source_x shape:", source_x_train.shape)
-    print("Loaded source_y shape:", source_y_train.shape)
-
     # Load source test data
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/sep/source_test.npz', allow_pickle=True)
     source_path_test = data['source_path_test']
     source_y_test = data['source_y_test']
     source_x_test, source_y_test = load_image(source_path_test, source_y_test)
-
-    uniq, cnts = np.unique(source_y_test, return_counts=True)
-    num_classes = len(uniq)
-    counts = np.zeros(num_classes, dtype=int)
-    counts[uniq] = cnts
-    for cls, cnt in enumerate(counts):
-        print(f"Class {cls}: {cnt} samples")
-    print("Loaded source_x shape:", source_x_test.shape)
-    print("Loaded source_y shape:", source_y_test.shape)
 
     # Load selected target train data with pseudo-labels
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/sep/target_train_filtered.npz', allow_pickle=True)
@@ -62,29 +42,13 @@ if __name__ == "__main__":
     target_pred_train_filtered = data['target_pred_train_filtered']
     target_x_train_filtered, target_y_train_filtered = load_image(target_path_train_filtered, target_pred_train_filtered)
 
-    uniq, cnts = np.unique(target_pred_train_filtered, return_counts=True)
-    num_classes = len(uniq)
-    counts = np.zeros(num_classes, dtype=int)
-    counts[uniq] = cnts
-    for cls, cnt in enumerate(counts):
-        print(f"Class {cls}: {cnt} samples")
-    print("Loaded target_x_train_filtered shape:", target_x_train_filtered.shape)
-    print("Loaded target_y_train_filtered shape:", target_y_train_filtered.shape)
-
     # Load target test data
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/sep/target_test.npz', allow_pickle=True)
     target_path_test = data['target_path_test']
     target_y_test = data['target_y_test']
     target_x_test, target_y_test = load_image(target_path_test, target_y_test)
 
-    uniq, cnts = np.unique(target_y_test, return_counts=True)
-    num_classes = len(uniq)
-    counts = np.zeros(num_classes, dtype=int)
-    counts[uniq] = cnts
-    for cls, cnt in enumerate(counts):
-        print(f"Class {cls}: {cnt} samples")
-    print("Loaded target_x_test shape:", target_x_test.shape)
-    print("Loaded target_y_test shape:", target_y_test.shape)
+    num_classes = len(np.unique(target_y_test))
 
     # Convert labels to categorical
     source_y_train = tf.keras.utils.to_categorical(source_y_train, num_classes=num_classes)
@@ -129,10 +93,6 @@ if __name__ == "__main__":
             micro = f1_score(y_true, y_pred, average="micro")
             weighted = f1_score(y_true, y_pred, average="weighted")
             cm = confusion_matrix(y_true, y_pred)
-            print(f"[sklearn] Acc: {acc:.4f}  Macro-F1: {macro:.4f}  Micro-F1: {micro:.4f}  Weighted-F1: {weighted:.4f}")
-            print("[sklearn] Confusion matrix:\n", cm)
         except Exception as e:
             print("sklearn check skipped:", e)
 
-        elapsed = time.time() - start_time
-        print("Total runtime: {:.1f}s ({:.1f} min)".format(elapsed, elapsed / 60))
