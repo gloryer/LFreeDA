@@ -13,13 +13,16 @@ np_config.enable_numpy_behavior()
 
 class list_to_spektral_dataset(Dataset):
     def __init__(self, data, **kwargs):
-        self.data = data
-
+        # Only needed transiently for read() (called by super().__init__()
+        # below, which populates self.graphs from it) -- drop it right after
+        # so the original list of Graph objects doesn't stay alive
+        # duplicating the copies read() just made.
+        self._source_data = data
         super().__init__(**kwargs)
-        
+        del self._source_data
+
     def read(self):
-        #print(self.data[0])
-        return [Graph(x=graph.x, a=graph.a, y=graph.y) for graph in self.data]
+        return [Graph(x=graph.x, a=graph.a, y=graph.y) for graph in self._source_data]
     
     
     

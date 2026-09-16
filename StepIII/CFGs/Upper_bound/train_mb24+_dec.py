@@ -57,31 +57,6 @@ if __name__ == "__main__":
     malware_may_1 = GraphData(path_1)
     malware_may = merge_dataset(malware_may_0, malware_may_1)
 
-    # July
-    path_0 = str(data_dir / "graph_features/mb24/July/0/cfg_embeddings")
-    path_1 = str(data_dir / "graph_features/mb24/July/1/cfg_embeddings")
-    malware_july_0 = GraphData(path_0)
-    malware_july_1 = GraphData(path_1)
-    malware_july = merge_dataset(malware_july_0, malware_july_1)
-
-    # Aug
-    path_0 = str(data_dir / "graph_features/mb24/Aug/0/cfg_embeddings")
-    path_1 = str(data_dir / "graph_features/mb24/Aug/1/cfg_embeddings")
-    malware_aug_0 = GraphData(path_0)
-    malware_aug_1 = GraphData(path_1)
-    malware_aug = merge_dataset(malware_aug_0, malware_aug_1)
-
-    # Sep
-    path_0 = str(data_dir / "graph_features/mb24/Sep/0/cfg_embeddings")
-    path_1 = str(data_dir / "graph_features/mb24/Sep/1/cfg_embeddings")
-    malware_sep_0 = GraphData(path_0)
-    malware_sep_1 = GraphData(path_1)
-    malware_sep = merge_dataset(malware_sep_0, malware_sep_1)
-
-    # Oct (single cfg_embeddings folder)
-    path_oct = str(data_dir / "graph_features/mb24/Oct/cfg_embeddings")
-    malware_oct = GraphData(path_oct)
-
     # Nov (single cfg_embeddings folder)
     path_nov = str(data_dir / "graph_features/mb24/Nov/cfg_embeddings")
     malware_nov = GraphData(path_nov)

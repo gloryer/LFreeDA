@@ -32,11 +32,6 @@ if __name__ == "__main__":
 
 
 
-    #Load source test data
-    path = str(project_root / 'data/stepII_constructed_datasets/mb24/nov/source_test.npz')
-    source_test = load_matched_graphs(path, "source_path_test", "source_y_test","source_y_test")
-    
-
     # Load selected target train data with pseudo-labels
     path = str(project_root / 'data/stepII_constructed_datasets/mb24/nov/target_train_filtered.npz')
     target_train_filtered = load_matched_graphs(path, "target_path_train_filtered", "target_pred_train_filtered","target_true_train_filtered")
@@ -70,7 +65,6 @@ if __name__ == "__main__":
         print("Target testing set size is {}".format(len(target_test)))
 
         loader_source_tr = DisjointLoader(source_train, batch_size=batch_size, epochs = epochs, shuffle = True)
-        #loader_source_te = DisjointLoader(source_test,  batch_size=batch_size, epochs =1)
 
         loader_target_tr = DisjointLoader(target_train_filtered, batch_size=batch_size, epochs = None, shuffle = True)
         loader_target_te = DisjointLoader(target_test, batch_size=batch_size)

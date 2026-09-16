@@ -71,25 +71,6 @@ if __name__ == "__main__":
     malware_aug_1 = GraphData(path_1)
     malware_aug = merge_dataset(malware_aug_0, malware_aug_1)
 
-    # Sep
-    path_0 = str(data_dir / "graph_features/mb24/Sep/0/cfg_embeddings")
-    path_1 = str(data_dir / "graph_features/mb24/Sep/1/cfg_embeddings")
-    malware_sep_0 = GraphData(path_0)
-    malware_sep_1 = GraphData(path_1)
-    malware_sep = merge_dataset(malware_sep_0, malware_sep_1)
-
-    # Oct (single cfg_embeddings folder)
-    path_oct = str(data_dir / "graph_features/mb24/Oct/cfg_embeddings")
-    malware_oct = GraphData(path_oct)
-
-    # Nov (single cfg_embeddings folder)
-    path_nov = str(data_dir / "graph_features/mb24/Nov/cfg_embeddings")
-    malware_nov = GraphData(path_nov)
-
-    # Dec (single cfg_embeddings folder)
-    path_dec = str(data_dir / "graph_features/mb24/Dec/cfg_embeddings")
-    malware_dec = GraphData(path_dec)
-
     # Benign Source datasets
     benign_source_dataset1 = GraphData(str(data_dir / "graph_features/benign_source/dataset1/cfg_embeddings"))
     benign_source_dataset2 = GraphData(str(data_dir / "graph_features/benign_source/dataset2/cfg_embeddings"))
