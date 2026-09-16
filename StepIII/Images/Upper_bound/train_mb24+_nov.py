@@ -14,7 +14,7 @@ from tensorflow.keras.applications import ResNet50
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from Utils.utils import load_image_malware, change_attack_label, MacroF1
+from Utils.utils import load_image_malware, load_image_normal, change_attack_label, MacroF1
 
 project_root = Path(__file__).resolve().parent.parent.parent.parent
 
@@ -43,18 +43,6 @@ if __name__ == "__main__":
     img_path = str(project_root / "data/image_features/mb24/may/may")
     malware_may_x, malware_may_y = load_image_malware(img_path, label_path)
 
-    label_path = str(project_root / "data/labels/mb24/July/july_malware.csv")
-    img_path = str(project_root / "data/image_features/mb24/july/july")
-    malware_july_x, malware_july_y = load_image_malware(img_path, label_path)
-
-    label_path = str(project_root / "data/labels/mb24/Aug/aug_malware.csv")
-    img_path = str(project_root / "data/image_features/mb24/aug/aug")
-    malware_aug_x, malware_aug_y = load_image_malware(img_path, label_path)
-
-    label_path = str(project_root / "data/labels/mb24/Sep/sep_malware.csv")
-    img_path = str(project_root / "data/image_features/mb24/sep/sep")
-    malware_sep_x, malware_sep_y = load_image_malware(img_path, label_path)
-
     label_path = str(project_root / "data/labels/mb24/Oct/oct_malware.csv")
     img_path = str(project_root / "data/image_features/mb24/oct")
     malware_oct_x, malware_oct_y = load_image_malware(img_path, label_path)
@@ -63,26 +51,18 @@ if __name__ == "__main__":
     img_path = str(project_root / "data/image_features/mb24/nov")
     malware_nov_x, malware_nov_y = load_image_malware(img_path, label_path)
 
-    label_path = str(project_root / "data/labels/mb24/Dec/dec_malware.csv")
-    img_path = str(project_root / "data/image_features/mb24/dec")
-    malware_dec_x, malware_dec_y = load_image_malware(img_path, label_path)
+    # Load benign_source datasets 1-4 (all-benign folders, label 0 for every image)
+    benign_source_dataset1_x = load_image_normal(str(project_root / "data/image_features/benign_source/dataset1"))
+    benign_source_dataset1_y = np.zeros((len(benign_source_dataset1_x), 1))
 
-    # Load benign_source datasets 1-4
-    label_path = str(project_root / "data/labels/mb24/Nov/benign_source_dataset1.csv")
-    img_path = str(project_root / "data/image_features/mb24/nov")
-    benign_source_dataset1_x, benign_source_dataset1_y = load_image_malware(img_path, label_path)
+    benign_source_dataset2_x = load_image_normal(str(project_root / "data/image_features/benign_source/dataset2"))
+    benign_source_dataset2_y = np.zeros((len(benign_source_dataset2_x), 1))
 
-    label_path = str(project_root / "data/labels/mb24/Nov/benign_source_dataset2.csv")
-    img_path = str(project_root / "data/image_features/mb24/nov")
-    benign_source_dataset2_x, benign_source_dataset2_y = load_image_malware(img_path, label_path)
+    benign_source_dataset3_x = load_image_normal(str(project_root / "data/image_features/benign_source/dataset3"))
+    benign_source_dataset3_y = np.zeros((len(benign_source_dataset3_x), 1))
 
-    label_path = str(project_root / "data/labels/mb24/Nov/benign_source_dataset3.csv")
-    img_path = str(project_root / "data/image_features/mb24/nov")
-    benign_source_dataset3_x, benign_source_dataset3_y = load_image_malware(img_path, label_path)
-
-    label_path = str(project_root / "data/labels/mb24/Nov/benign_source_dataset4.csv")
-    img_path = str(project_root / "data/image_features/mb24/nov")
-    benign_source_dataset4_x, benign_source_dataset4_y = load_image_malware(img_path, label_path)
+    benign_source_dataset4_x = load_image_normal(str(project_root / "data/image_features/benign_source/dataset4"))
+    benign_source_dataset4_y = np.zeros((len(benign_source_dataset4_x), 1))
 
     # Merge benign_source datasets
     source_normal_x = np.concatenate([benign_source_dataset1_x, benign_source_dataset2_x,
@@ -90,22 +70,18 @@ if __name__ == "__main__":
     source_normal_y = np.concatenate([benign_source_dataset1_y, benign_source_dataset2_y,
                                        benign_source_dataset3_y, benign_source_dataset4_y], axis=0)
 
-    # Load benign_target datasets 1-4
-    label_path = str(project_root / "data/labels/mb24/Nov/benign_target_dataset1.csv")
-    img_path = str(project_root / "data/image_features/mb24/nov")
-    benign_target_dataset1_x, benign_target_dataset1_y = load_image_malware(img_path, label_path)
+    # Load benign_target datasets 1-4 (all-benign folders, label 0 for every image)
+    benign_target_dataset1_x = load_image_normal(str(project_root / "data/image_features/benign_target/dataset1"))
+    benign_target_dataset1_y = np.zeros((len(benign_target_dataset1_x), 1))
 
-    label_path = str(project_root / "data/labels/mb24/Nov/benign_target_dataset2.csv")
-    img_path = str(project_root / "data/image_features/mb24/nov")
-    benign_target_dataset2_x, benign_target_dataset2_y = load_image_malware(img_path, label_path)
+    benign_target_dataset2_x = load_image_normal(str(project_root / "data/image_features/benign_target/dataset2"))
+    benign_target_dataset2_y = np.zeros((len(benign_target_dataset2_x), 1))
 
-    label_path = str(project_root / "data/labels/mb24/Nov/benign_target_dataset3.csv")
-    img_path = str(project_root / "data/image_features/mb24/nov")
-    benign_target_dataset3_x, benign_target_dataset3_y = load_image_malware(img_path, label_path)
+    benign_target_dataset3_x = load_image_normal(str(project_root / "data/image_features/benign_target/dataset3"))
+    benign_target_dataset3_y = np.zeros((len(benign_target_dataset3_x), 1))
 
-    label_path = str(project_root / "data/labels/mb24/Nov/benign_target_dataset4.csv")
-    img_path = str(project_root / "data/image_features/mb24/nov")
-    benign_target_dataset4_x, benign_target_dataset4_y = load_image_malware(img_path, label_path)
+    benign_target_dataset4_x = load_image_normal(str(project_root / "data/image_features/benign_target/dataset4"))
+    benign_target_dataset4_y = np.zeros((len(benign_target_dataset4_x), 1))
 
     # Merge benign_target datasets
     target_normal_x = np.concatenate([benign_target_dataset1_x, benign_target_dataset2_x,

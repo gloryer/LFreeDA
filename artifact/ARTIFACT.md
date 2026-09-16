@@ -103,7 +103,7 @@ Run each command to train the step III models and reports test accuracy for the 
 | Warm-start GIN | `python StepIII/CFGs/Warm_start/train_mb24+_aug.py --epochs 20` | 30.5 min |
 | AdvDA + CNN | `python StepIII/Images/AdvDA/train_mb24+_aug.py --epochs 20` | 3.6 min |
 | AdvDA + GIN | `python StepIII/CFGs/AdvDA/train_mb24+_aug.py --epochs 20` | ~93.0 min |
-| Upper bound (ResNet) | `python StepIII/Images/Upper_bound/train_mb24+_aug.py --epochs 20` | ~5.4 min |
+| Upper bound (ResNet) | `python StepIII/Images/Upper_bound/train_mb24+_aug.py --epochs 20` | 2.9 min |
 | Upper bound (GIN) | `python StepIII/CFGs/Upper_bound/train_mb24+_aug.py --epochs 20` | 85.8 min |
 
 
@@ -159,7 +159,7 @@ Pseudo-label accuracy under the three settings:
 | Warm-start GIN | 77.2 | 75.1 | 80.6 | 77.8 |
 | AdvDA + CNN | 81.8 | 77.9 | 82.5 | 78.9 |
 | AdvDA + GIN | 81.2 | 79.4 | — | — |
-| Upper bound (ResNet) | 86.4 | 82.1 | — | — |
+| Upper bound (ResNet) | 86.4 | 82.1 | 83.8 | 79.2 |
 | Upper bound (GIN) | 84.2 | 82.5 | — | — |
 
 > [!NOTE]

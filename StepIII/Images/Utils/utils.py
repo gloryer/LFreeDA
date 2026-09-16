@@ -146,65 +146,73 @@ class MacroF1(tf.keras.metrics.Metric):
         self.cm.assign(tf.zeros_like(self.cm))
 
 
-def load_image_malware(image_path, label_path):
-    
-    labels = pd.read_csv(label_path, header=0)
-    
-    x = []
-    y = []
-            
-    
-    
-    
-    for filename in os.listdir(image_path):
-        if filename.endswith(".png"):
-            hash_id = filename.split(".")[0]
-            if hash_id in labels['malware SHA-256'].values: 
-                f = os.path.join(image_path, filename)
-                image = Image.open(f).convert('RGB')
-                image = image.resize((56, 56), Image.LANCZOS)
-                image = np.array(image, dtype=int)
-                x.append(image)
-                y.append(labels[labels["malware SHA-256"] == hash_id]["Label"])
+def _load_one_malware_image(args):
+    filename, image_path, label_by_hash = args
+    if not filename.endswith(".png"):
+        return None
+    hash_id = filename.split(".")[0]
+    if hash_id not in label_by_hash:
+        return None
+    f = os.path.join(image_path, filename)
+    image = Image.open(f).convert('RGB')
+    image = image.resize((56, 56), Image.LANCZOS)
+    image = np.array(image, dtype=int)
+    return image, label_by_hash[hash_id]
 
-         
-            
+
+def load_image_malware(image_path, label_path, max_workers=None):
+    labels = pd.read_csv(label_path, header=0)
+    label_by_hash = dict(zip(labels["malware SHA-256"], labels["Label"]))
+
+    max_workers = max_workers or os.cpu_count()
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        results = list(executor.map(
+            _load_one_malware_image,
+            ((filename, image_path, label_by_hash) for filename in os.listdir(image_path))
+        ))
+
+    results = [r for r in results if r is not None]
+    x = [image for image, _ in results]
+    y = [[label] for _, label in results]
+
     x = np.asarray(x)
     y = np.asarray(y)
-                       
+
     x = x.astype('float32') / 255.
-    
-    
-        
-    return x, y 
+
+    return x, y
 
 
 
 
+def _load_one_normal_image(args):
+    filename, directory_path, image_size_limit = args
+    if not (filename.endswith(".jpg") or filename.endswith(".png") or filename.endswith(".jpeg")):
+        return None
+    file_path = os.path.join(directory_path, filename)
+    try:
+        with Image.open(file_path) as img:
+            if img.width * img.height > image_size_limit:
+                return None
+            img = img.convert('RGB')
+            img = img.resize((56, 56), Image.LANCZOS)
+            return np.array(img, dtype=int)
+    except (Image.DecompressionBombError, OSError) as e:
+        print(f"Error loading image {filename}: {e}")
+        return None
 
 
-def load_image_normal(directory_path):
-    image_list = []
+def load_image_normal(directory_path, max_workers=None):
     image_size_limit = 178956970  # Maximum allowed pixels per image
 
-    for filename in os.listdir(directory_path):
-        if filename.endswith(".jpg") or filename.endswith(".png") or filename.endswith(".jpeg"):
-            file_path = os.path.join(directory_path, filename)
-            try:
-                Image.MAX_IMAGE_PIXELS = None  # Disable DecompressionBombError check for large images
-                with Image.open(file_path) as img:
-                    Image.MAX_IMAGE_PIXELS = None  # Disable DecompressionBombError check for large images
-                    # Check if the image size is within the allowed limit
-                    if img.width * img.height <= image_size_limit:
-                        img = img.convert('RGB')
-                        img = img.resize((56, 56), Image.LANCZOS)
-                        img_array = np.array(img, dtype=int)
-                        image_list.append(img_array)
-                    else:
-                        print(f"Image {filename} exceeds the size limit of {image_size_limit} pixels and will be skipped.")
-            except (Image.DecompressionBombError, OSError) as e:
-                print(f"Error loading image {filename}: {e}")
+    max_workers = max_workers or os.cpu_count()
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        results = list(executor.map(
+            _load_one_normal_image,
+            ((filename, directory_path, image_size_limit) for filename in os.listdir(directory_path))
+        ))
 
+    image_list = [r for r in results if r is not None]
     image_list = np.asarray(image_list)
     image_list = image_list.astype('float32') / 255.
 
