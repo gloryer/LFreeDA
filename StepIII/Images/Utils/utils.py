@@ -1,4 +1,5 @@
 import os
+from concurrent.futures import ThreadPoolExecutor
 import numpy as np
 import pandas as pd
 from PIL import Image
@@ -67,36 +68,33 @@ def change_attack_label(x):
 
 
 
-def load_image(image_path, labels):
+def _load_one_image(args):
+    path, label = args
+    if not path.endswith(".png"):
+        return None
+    image = Image.open(path).convert('RGB')
+    image = image.resize((56, 56), Image.LANCZOS)
+    image = np.array(image, dtype=int)
+    return image, label
 
 
+def load_image(image_path, labels, max_workers=None):
+    # Image decode/resize is I/O- and PIL-bound (PIL releases the GIL for
+    # most of this work), so a thread pool parallelizes it well without the
+    # process-pool overhead of pickling images back to the main process.
+    max_workers = max_workers or os.cpu_count()
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        results = list(executor.map(_load_one_image, zip(image_path, labels)))
 
+    results = [r for r in results if r is not None]
+    x = [image for image, _ in results]
+    y = [label for _, label in results]
 
-    x = []
-    y = []
-
-
-
-    for p, l in zip(image_path, labels):
-        if p.endswith(".png"):
-            #hash_id = filename.split(".")[0]
-
-            image = Image.open(p).convert('RGB')
-            image = image.resize((56, 56), Image.LANCZOS)
-            image = np.array(image, dtype=int)
-            x.append(image)
-            y.append(l) 
-
-         
-            
     x = np.asarray(x)
     y = np.asarray(y)
-    
-                       
+
     x = x.astype('float32') / 255.
-    
-    
-        
+
     return x, y
 
 

@@ -1,3 +1,4 @@
+import argparse
 import os
 from pathlib import Path
 import sys
@@ -23,8 +24,18 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--epochs", type=int, default=50,
+                         help="Number of training epochs (default: 50)")
+    args = parser.parse_args()
+
     # Get project root directory
     project_root = Path(__file__).parent.parent.parent.parent
+
+    print("Loading data ...")
+    print("  Source train = source-domain train set (labeled), used for supervised training only "
+          "(no target adaptation — this is the lower-bound baseline)")
+    print("  Target test  = target-domain test set (held out; this task's evaluation target)")
 
     # Load source data
     source_data = np.load(
@@ -44,6 +55,9 @@ if __name__ == "__main__":
     target_y_test = target_data['target_y_test']
     target_x_test, target_y_test = load_image(target_path_test, target_y_test)
 
+    print("Source train: {}".format(source_x_train.shape))
+    print("Target test:  {}".format(target_x_test.shape))
+
     # Convert labels to categorical
     source_y_train = tf.keras.utils.to_categorical(source_y_train, num_classes=2)
     target_y_test = tf.keras.utils.to_categorical(target_y_test, num_classes=2)
@@ -52,7 +66,7 @@ if __name__ == "__main__":
     learning_rate = 1e-3
     num_classes = 2
     batch_size = 32
-    epochs = 50
+    epochs = args.epochs
 
     # Build and train model
     model = Sequential([

@@ -113,6 +113,16 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 </details>
 
+<details>
+<summary><strong>Optional: adjust epochs for the Lower bound (ResNet) run</strong></summary>
+
+```bash
+python StepIII/Images/Lower_bound/train_mb24+_aug.py --epochs 30
+```
+`StepIII/Images/Lower_bound/train_mb24+_aug.py` accepts `--epochs` (default: 50, matching the 8.5 min runtime above) if you'd like a faster, scaled-down check instead.
+
+</details>
+
 **Total estimated runtime: ~9 hours** (Step I + Step II + all Step III variants above).
 
 ## Expected results
