@@ -1,3 +1,4 @@
+import argparse
 import os
 import numpy as np
 import tensorflow as tf
@@ -6,20 +7,27 @@ from sklearn.model_selection import train_test_split
 from tensorflow.python.ops.numpy_ops import np_config
 from pathlib import Path
 from tensorflow.keras.optimizers import Adam
-from spektral.layers import DisjointLoader
+from spektral.data import DisjointLoader
 np_config.enable_numpy_behavior()
 import sys
 
 # Add StepI to path for utilities
 sys.path.append(str(Path(__file__).resolve().parent.parent.parent.parent / 'StepI'))
+# Add StepIII/CFGs to path for GraphMatching/Utils
+script_path = Path(__file__).resolve().parent.parent
+sys.path.append(str(script_path))
 
-from StepIII.CFGs.GraphMatching.graph_matching import GraphData
-from StepIII.CFGs.Utils.utils import merge_dataset, binary_label, MacroF1
+from GraphMatching.graph_matching import GraphData
+from Utils.utils import merge_dataset, binary_label, MacroF1
 from model import GIN0
 
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--epochs", type=int, default=60,
+                         help="Number of training epochs (default: 60)")
+    args = parser.parse_args()
 
     print("Loading data ...")
 
@@ -138,7 +146,7 @@ if __name__ == "__main__":
     learning_rate_2 = 0.001
     channels = 128  # Hidden units
     layers = 3  # GIN layers
-    epochs = 20  # Number of training epochs
+    epochs = args.epochs
     batch_size = 16  # Batch size
     num_classes = 2
 
@@ -170,7 +178,7 @@ if __name__ == "__main__":
         model.compile(optimizer=optimizer_1, loss="categorical_crossentropy", metrics=["acc"])
 
 
-        model.fit(loader_tr_source.load(), steps_per_epoch=loader_tr_source.steps_per_epoch, epochs=20)
+        model.fit(loader_tr_source.load(), steps_per_epoch=loader_tr_source.steps_per_epoch, epochs=epochs)
 
 
         # Let's take a look to see how many layers are in the base model
@@ -186,7 +194,7 @@ if __name__ == "__main__":
 
         model.compile(optimizer=optimizer_2, loss="categorical_crossentropy", metrics=["acc",  MacroF1(num_classes)])
 
-        model.fit(loader_tr_target.load(), steps_per_epoch=loader_tr_target.steps_per_epoch,epochs=20,
+        model.fit(loader_tr_target.load(), steps_per_epoch=loader_tr_target.steps_per_epoch,epochs=epochs,
                 validation_data=loader_te.load(), validation_steps=loader_te.steps_per_epoch
         )
 

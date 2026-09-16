@@ -25,8 +25,8 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--epochs", type=int, default=50,
-                         help="Number of training epochs (default: 50)")
+    parser.add_argument("--epochs", type=int, default=60,
+                         help="Number of training epochs (default: 60)")
     args = parser.parse_args()
 
     # Get project root directory

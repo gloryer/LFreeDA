@@ -1,3 +1,4 @@
+import argparse
 from spektral.data import DisjointLoader
 from tensorflow.keras import layers
 
@@ -6,7 +7,7 @@ import sys
 from pathlib import Path
 script_path = Path(__file__).resolve().parent.parent
 sys.path.append(str(script_path))
-from StepIII.CFGs.GraphMatching.graph_matching import load_matched_graphs
+from GraphMatching.graph_matching import load_matched_graphs
 from Utils.utils import encode
 from AdvDA.model import AdvDA_GIN, GIN0
 
@@ -17,8 +18,10 @@ import numpy as np
 
 
 if __name__ == "__main__":
-
-    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--epochs", type=int, default=60,
+                         help="Number of training epochs (default: 60)")
+    args = parser.parse_args()
 
     #Load source train data
     path = '../../../data/stepII_constructed_datasets/mb24/sep/source_train.npz'
@@ -52,7 +55,7 @@ if __name__ == "__main__":
     ################################################################################
     channels = 128  # Hidden units
     layers = 3  # GIN layers
-    epochs = 50  # Number of training epochs
+    epochs = args.epochs
     batch_size = 16  # Batch size
     n_out = 2
 
@@ -72,7 +75,7 @@ if __name__ == "__main__":
         # build model
         GIN = GIN0(channels, layers)
 
-        model = AdvDA_GIN(loader_source_tr, loader_target_tr, loader_target_te, GIN, n_out, epochs=50)
+        model = AdvDA_GIN(loader_source_tr, loader_target_tr, loader_target_te, GIN, n_out, epochs=epochs)
 
         G, C = model.train()
 

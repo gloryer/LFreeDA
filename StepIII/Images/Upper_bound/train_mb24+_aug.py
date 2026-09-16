@@ -1,3 +1,4 @@
+import argparse
 import os
 import numpy as np
 import tensorflow as tf
@@ -21,6 +22,10 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:1024"
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--epochs", type=int, default=60,
+                         help="Number of training epochs (default: 60)")
+    args = parser.parse_args()
 
     label_path = "../../../data/labels/mb24/March/march_malware.csv"
     img_path = "../../../data/image_features/mb24/march/march"
@@ -198,7 +203,7 @@ if __name__ == "__main__":
 
         model.compile(optimizer=optimizer_1, loss="categorical_crossentropy", metrics=["acc", MacroF1(num_classes)])
 
-        model.fit(x_train, y_train, batch_size=32, epochs=50, validation_data=(target_x_test, target_y_test))
+        model.fit(x_train, y_train, batch_size=32, epochs=args.epochs, validation_data=(target_x_test, target_y_test))
 
         # Evaluate the model on the test data
         print("Evaluate on test data")

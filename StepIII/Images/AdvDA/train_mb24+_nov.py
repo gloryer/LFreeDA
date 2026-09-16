@@ -1,3 +1,4 @@
+import argparse
 import os
 import numpy as np
 import tensorflow as tf
@@ -13,6 +14,10 @@ from sklearn.metrics import accuracy_score
 project_root = Path(__file__).resolve().parent.parent.parent.parent
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--epochs", type=int, default=60,
+                         help="Number of training epochs (default: 60)")
+    args = parser.parse_args()
 
     #  Load source train data
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/nov/source_train.npz', allow_pickle=True)
@@ -111,7 +116,7 @@ if __name__ == "__main__":
 
     #learning_rate_1 = 1e-3  # Learning rate
     learning_rate_2 = 0.0001
-    epochs = 30  # Number of training epochs
+    epochs = args.epochs
     n_class = 2
 
 
@@ -123,7 +128,7 @@ if __name__ == "__main__":
         print("--------------------------{} run-------------------------".format(i))
 
         model = AdvDA_CNN(source_x_train, source_y_train, target_x_train_filtered, target_y_train_filtered,
-                          source_x_test, source_y_test, target_x_test, target_y_test, epochs=30)
+                          source_x_test, source_y_test, target_x_test, target_y_test, epochs=epochs)
 
         generator, classifier = model.train()
 

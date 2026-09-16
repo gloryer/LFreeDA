@@ -1,3 +1,5 @@
+import argparse
+
 from spektral.data import DisjointLoader
 from tensorflow.keras import layers  # type: ignore
 from tensorflow.keras.optimizers import Adam  # type: ignore
@@ -6,13 +8,17 @@ import sys
 from pathlib import Path
 script_path = Path(__file__).resolve().parent.parent
 sys.path.append(str(script_path))
-from StepIII.CFGs.GraphMatching.graph_matching import load_matched_graphs
+from GraphMatching.graph_matching import load_matched_graphs
 from Utils.utils import encode, MacroF1
 from Lower_bound.model import GIN0
 
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--epochs", type=int, default=60,
+                         help="Number of training epochs (default: 60)")
+    args = parser.parse_args()
 
     ################################################################################
     # Config
@@ -21,7 +27,7 @@ if __name__ == "__main__":
     learning_rate_2 = 0.001
     channels = 128  # Hidden units
     layers = 3  # GIN layers
-    epochs = 20  # Number of training epochs
+    epochs = args.epochs
     batch_size = 16  # Batch size
     n_out = 2
     num_classes = 2
@@ -51,7 +57,7 @@ if __name__ == "__main__":
 
         model.compile(optimizer=optimizer_1, loss="categorical_crossentropy", metrics=["acc", MacroF1(num_classes)])
 
-        model.fit(loader_tr_source.load(), steps_per_epoch=loader_tr_source.steps_per_epoch,epochs=20,
+        model.fit(loader_tr_source.load(), steps_per_epoch=loader_tr_source.steps_per_epoch,epochs=epochs,
                   validation_data=loader_te.load(), validation_steps=loader_te.steps_per_epoch
         )
 

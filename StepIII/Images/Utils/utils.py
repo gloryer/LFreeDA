@@ -1,5 +1,6 @@
 import os
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 import numpy as np
 import pandas as pd
 from PIL import Image
@@ -10,6 +11,12 @@ np_config.enable_numpy_behavior()
 
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:1024"
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
+
+# This file lives at <repo_root>/StepIII/Images/Utils/utils.py, so this is the
+# repo root regardless of the caller's working directory. Step II saves image
+# paths relative to the repo root (for portability across machines); resolve
+# those against this when loading.
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 
 
 
@@ -72,7 +79,10 @@ def _load_one_image(args):
     path, label = args
     if not path.endswith(".png"):
         return None
-    image = Image.open(path).convert('RGB')
+    # Older constructed datasets stored absolute paths from whichever machine
+    # built them; newer ones store paths relative to the repo root.
+    full_path = path if os.path.isabs(path) else str(REPO_ROOT / path)
+    image = Image.open(full_path).convert('RGB')
     image = image.resize((56, 56), Image.LANCZOS)
     image = np.array(image, dtype=int)
     return image, label

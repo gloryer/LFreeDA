@@ -9,7 +9,7 @@
 - [How to run](#how-to-run)
   - [Step I: Pseudo-label generation](#step-i-pseudo-label-generation-9-min)
   - [Step II: Pseudo-label selection](#step-ii-pseudo-label-selection-5-min)
-  - [Step III: Adaptation with selected pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels-79-hrs)
+  - [Step III: Adaptation with selected pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels-57-hrs)
 - [Expected results](#expected-results)
 
 ## Scope
@@ -90,21 +90,26 @@ We've kept the cell outputs saved in the notebook so you can compare against the
 
 </details>
 
-### Step III: Adaptation with selected pseudo-labels (~7.9 hrs)
+### Step III: Adaptation with selected pseudo-labels (~5.7 hrs)
 By default, run each command below as-is — the Lower bound, Warm-start, and AdvDA variants already load from the precomputed `data/stepII_constructed_datasets/mb24/aug/`. The Upper bound variants use ground-truth labels directly and don't depend on Step II's output at all.
+
+Every variant below accepts `--epochs` (default: 60, matching Step I's convention). For this artifact, run each with `--epochs 20` to keep the evaluation within a reasonable time budget — the runtimes below reflect that.
 
 Run each variant to reproduce the corresponding point in Figure 6:
 
-| Method | Command | Approx. runtime |
+| Method | Command | Approx. runtime (`--epochs 20`) |
 |---|---|---|
-| Lower bound (ResNet) | `python StepIII/Images/Lower_bound/train_mb24+_aug.py` | 8.5 min |
-| Lower bound (GIN) | `python StepIII/CFGs/Lower_bound/train_mb24+_aug.py` | 57.4 min |
-| Warm-start ResNet-50 | `python StepIII/Images/Warm_start/train_mb24+_aug.py` | 11.8 min |
-| Warm-start GIN | `python StepIII/CFGs/Warm_start/train_mb24+_aug.py` | 72.6 min |
-| AdvDA + CNN | `python StepIII/Images/AdvDA/train_mb24+_aug.py` | 20.7 min |
-| AdvDA + GIN | `python StepIII/CFGs/AdvDA/train_mb24+_aug.py` | 232.6 min |
-| Upper bound (ResNet) | `python StepIII/Images/Upper_bound/train_mb24+_aug.py` | 13.4 min |
-| Upper bound (GIN) | `python StepIII/CFGs/Upper_bound/train_mb24+_aug.py` | 85.8 min |
+| Lower bound (ResNet) | `python StepIII/Images/Lower_bound/train_mb24+_aug.py --epochs 20` | ~3.4 min |
+| Lower bound (GIN) | `python StepIII/CFGs/Lower_bound/train_mb24+_aug.py --epochs 20` | 57.4 min |
+| Warm-start ResNet-50 | `python StepIII/Images/Warm_start/train_mb24+_aug.py --epochs 20` | 11.8 min |
+| Warm-start GIN | `python StepIII/CFGs/Warm_start/train_mb24+_aug.py --epochs 20` | 72.6 min |
+| AdvDA + CNN | `python StepIII/Images/AdvDA/train_mb24+_aug.py --epochs 20` | ~13.8 min |
+| AdvDA + GIN | `python StepIII/CFGs/AdvDA/train_mb24+_aug.py --epochs 20` | ~93.0 min |
+| Upper bound (ResNet) | `python StepIII/Images/Upper_bound/train_mb24+_aug.py --epochs 20` | ~5.4 min |
+| Upper bound (GIN) | `python StepIII/CFGs/Upper_bound/train_mb24+_aug.py --epochs 20` | 85.8 min |
+
+> [!NOTE]
+> Runtimes marked `~` are scaled down from a prior measurement taken at that script's old, higher hardcoded epoch count (30–50) and not freshly re-benchmarked — treat them as approximate. Unmarked rows were already measured at 20 epochs, so those figures are unchanged.
 
 <details>
 <summary><strong>Optional: edit the data-loading path to use your own Step II output</strong></summary>
@@ -113,17 +118,7 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 </details>
 
-<details>
-<summary><strong>Optional: adjust epochs for the Lower bound (ResNet) run</strong></summary>
-
-```bash
-python StepIII/Images/Lower_bound/train_mb24+_aug.py --epochs 30
-```
-`StepIII/Images/Lower_bound/train_mb24+_aug.py` accepts `--epochs` (default: 50, matching the 8.5 min runtime above) if you'd like a faster, scaled-down check instead.
-
-</details>
-
-**Total estimated runtime: ~9 hours** (Step I + Step II + all Step III variants above).
+**Total estimated runtime: ~5.9 hours** (Step I + Step II + all Step III variants above).
 
 ## Expected results
 

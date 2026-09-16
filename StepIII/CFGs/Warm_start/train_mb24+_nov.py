@@ -7,10 +7,11 @@ import sys
 from pathlib import Path
 script_path = Path(__file__).resolve().parent.parent
 sys.path.append(str(script_path))
-from StepIII.CFGs.GraphMatching.graph_matching import load_matched_graphs
+from GraphMatching.graph_matching import load_matched_graphs
 from Utils.utils import encode, MacroF1
 from AdvDA.model import AdvDA_GIN, GIN0
 
+import argparse
 from sklearn.metrics import f1_score
 import numpy as np
 
@@ -18,8 +19,10 @@ import numpy as np
 
 
 if __name__ == "__main__":
-
-
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--epochs", type=int, default=60,
+                         help="Number of training epochs (default: 60)")
+    args = parser.parse_args()
 
     #Load source train data
     path = '../../../data/stepII_constructed_datasets/mb24/nov/source_train.npz'
@@ -56,7 +59,7 @@ if __name__ == "__main__":
     learning_rate_2 = 0.001
     channels = 128  # Hidden units
     num_layers = 3  # GIN layers
-    epochs = 20  # Number of training epochs
+    epochs = args.epochs
     batch_size = 16  # Batch size
     n_out = 2
     num_classes = 2

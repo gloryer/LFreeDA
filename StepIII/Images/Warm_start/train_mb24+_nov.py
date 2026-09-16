@@ -1,3 +1,4 @@
+import argparse
 import os
 from pathlib import Path
 import sys
@@ -18,6 +19,11 @@ from Utils.utils import load_image, MacroF1
 project_root = Path(__file__).resolve().parent.parent.parent.parent
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--epochs", type=int, default=60,
+                         help="Number of training epochs (default: 60)")
+    args = parser.parse_args()
+
     # Load source train data
     data = np.load(project_root / 'data/stepII_constructed_datasets/mb24/nov/source_train.npz', allow_pickle=True)
     source_path_train = data['source_path_train']
@@ -105,7 +111,7 @@ if __name__ == "__main__":
 
         optimizer_1 = Adam(learning_rate_1)
         model.compile(optimizer=optimizer_1, loss="categorical_crossentropy", metrics=["acc", MacroF1(num_classes)])
-        model.fit(x_train, y_train, batch_size=32, epochs=20, validation_data=(target_x_test, target_y_test))
+        model.fit(x_train, y_train, batch_size=32, epochs=args.epochs, validation_data=(target_x_test, target_y_test))
 
         # Evaluate model
         results = model.evaluate(target_x_test, target_y_test, batch_size=32)
