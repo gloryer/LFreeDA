@@ -1,4 +1,5 @@
 import os
+import warnings
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 import numpy as np
@@ -11,6 +12,12 @@ np_config.enable_numpy_behavior()
 
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:1024"
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
+
+# Some malware-derived and benign images legitimately exceed Pillow's default
+# decompression-bomb pixel-count threshold. Disable the check globally instead
+# of per-call, and silence the corresponding warning so it doesn't spam stdout.
+Image.MAX_IMAGE_PIXELS = None
+warnings.filterwarnings("ignore", category=Image.DecompressionBombWarning)
 
 # This file lives at <repo_root>/StepIII/Images/Utils/utils.py, so this is the
 # repo root regardless of the caller's working directory. Step II saves image

@@ -35,9 +35,6 @@ if __name__ == "__main__":
     project_root = Path(__file__).parent.parent.parent.parent
 
     print("Loading data ...")
-    print("  Source train = source-domain train set (labeled), used for supervised training only "
-          "(no target adaptation — this is the lower-bound baseline)")
-    print("  Target test  = target-domain test set (held out; this task's evaluation target)")
 
     # Load source data
     source_data = np.load(
