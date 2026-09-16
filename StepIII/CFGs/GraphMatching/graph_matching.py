@@ -284,7 +284,7 @@ class GraphData(Dataset):
             adj = sparse_matrix - sp.dia_matrix((sparse_matrix.diagonal()[np.newaxis, :], [0]), shape=sparse_matrix.shape)
             adj.eliminate_zeros()
             # Check that diag is zero:
-            assert np.diag(adj.todense()).sum() == 0
+            assert np.all(adj.diagonal() == 0)
 
             adj_triu = sp.triu(adj)
             adj_tuple = sparse_to_tuple(adj_triu)
