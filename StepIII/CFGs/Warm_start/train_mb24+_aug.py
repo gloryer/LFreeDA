@@ -10,7 +10,7 @@ project_root = script_path.parent.parent
 sys.path.append(str(script_path))
 from GraphMatching.graph_matching import load_matched_graphs
 from Utils.utils import encode, MacroF1
-from AdvDA.model import AdvDA_GIN, GIN0
+from Lower_bound.model import GIN0
 
 import argparse
 import time
@@ -66,10 +66,6 @@ if __name__ == "__main__":
     for i in range(1):
         print("--------------------------{} run-------------------------".format(i))
 
-
-        print("Source training set size is {}".format(len(source_train)))
-        print("Target training set size is {}".format(len(target_train_filtered)))
-        print("Target testing set size is {}".format(len(target_test)))
 
 
 
