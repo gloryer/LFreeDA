@@ -6,6 +6,7 @@ from tensorflow.keras.optimizers import Adam
 import sys
 from pathlib import Path
 script_path = Path(__file__).resolve().parent.parent
+project_root = script_path.parent.parent
 sys.path.append(str(script_path))
 from GraphMatching.graph_matching import load_matched_graphs
 from Utils.utils import encode, MacroF1
@@ -27,23 +28,23 @@ if __name__ == "__main__":
     start_time = time.time()
 
     #Load source train data
-    path = '../../../data/stepII_constructed_datasets/mb24/nov/source_train.npz'
+    path = str(project_root / 'data/stepII_constructed_datasets/mb24/nov/source_train.npz')
     source_train = load_matched_graphs(path, "source_path_train", "source_y_train","source_y_train")
 
 
 
     #Load source test data
-    path = "../../../data/stepII_constructed_datasets/mb24/nov/source_test.npz"
+    path = str(project_root / 'data/stepII_constructed_datasets/mb24/nov/source_test.npz')
     source_test = load_matched_graphs(path, "source_path_test", "source_y_test","source_y_test")
 
 
     # Load selected target train data with pseudo-labels
-    path = '../../../data/stepII_constructed_datasets/mb24/nov/target_train_filtered.npz'
+    path = str(project_root / 'data/stepII_constructed_datasets/mb24/nov/target_train_filtered.npz')
     target_train_filtered = load_matched_graphs(path, "target_path_train_filtered", "target_pred_train_filtered","target_true_train_filtered")
 
 
     #Load target test data
-    path = "../../../data/stepII_constructed_datasets/mb24/nov/target_test.npz"
+    path = str(project_root / 'data/stepII_constructed_datasets/mb24/nov/target_test.npz')
     target_test = load_matched_graphs(path, "target_path_test", "target_y_test","target_y_test")
 
 

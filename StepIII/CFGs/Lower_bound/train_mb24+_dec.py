@@ -8,6 +8,7 @@ from tensorflow.keras.optimizers import Adam  # type: ignore
 import sys
 from pathlib import Path
 script_path = Path(__file__).resolve().parent.parent
+project_root = script_path.parent.parent
 sys.path.append(str(script_path))
 from GraphMatching.graph_matching import load_matched_graphs
 from Utils.utils import encode, MacroF1
@@ -35,11 +36,11 @@ if __name__ == "__main__":
     num_classes = 2
 
     #Load source train data
-    path = '../../../data/stepII_constructed_datasets/mb24/dec/source_train.npz'
+    path = str(project_root / 'data/stepII_constructed_datasets/mb24/dec/source_train.npz')
     source_train = load_matched_graphs(path, "source_path_train", "source_y_train","source_y_train")
 
     #Load target test data
-    path = "../../../data/stepII_constructed_datasets/mb24/dec/target_test.npz"
+    path = str(project_root / 'data/stepII_constructed_datasets/mb24/dec/target_test.npz')
     target_test = load_matched_graphs(path, "target_path_test", "target_y_test","target_y_test")
 
     source_train = encode(source_train , 2)

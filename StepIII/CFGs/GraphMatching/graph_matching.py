@@ -2,13 +2,29 @@ import numpy as np
 from spektral.data import Dataset, Graph
 import scipy.sparse as sp
 import os
-import glob
+from functools import lru_cache
 from pathlib import Path
 import sys
 from pathlib import Path
 script_path = Path(__file__).resolve().parent.parent
 sys.path.append(str(script_path))
 from Utils.utils import list_to_spektral_dataset, sparse_to_tuple
+
+
+@lru_cache(maxsize=None)
+def _list_node_files(cfg_emb_dir):
+    # load_matched_graphs calls into GraphData_normal/GraphData_mb24 once per
+    # image, and each of those used to glob.glob() the same cfg_embeddings
+    # directory from scratch every time -- thousands of full directory scans
+    # for a single npz's worth of images. List each directory once and reuse
+    # it; matching semantics (suffix match, sparse-matrix files excluded) are
+    # unchanged from the old glob.glob(f"*_{base}.npz") + filter.
+    if not os.path.isdir(cfg_emb_dir):
+        return ()
+    return tuple(
+        f for f in os.listdir(cfg_emb_dir)
+        if f.endswith('.npz') and '_sparse_matrix.npz' not in f
+    )
 
 
 
@@ -82,13 +98,13 @@ class GraphData_normal(Dataset):
                 return []
             
         else:
-            pattern = os.path.join(cfg_emb_dir,  f"*_{self.base}.npz")
-            matches = [p for p in glob.glob(pattern) if '_sparse_matrix.npz' not in p]
+            suffix = f"_{self.base}.npz"
+            matches = [f for f in _list_node_files(cfg_emb_dir) if f.endswith(suffix)]
             #print(matches)
             if not matches:
                 return []
-            
-            node_fp = matches[0]
+
+            node_fp = os.path.join(cfg_emb_dir, matches[0])
             sparse_fp = node_fp.replace('.npz', '_sparse_matrix.npz')
             if not os.path.exists(sparse_fp):
                 return []
@@ -133,16 +149,16 @@ class GraphData_mb24(Dataset):
         # Iterate both class folders
         for cls in ['0', '1']:
             root = os.path.join(self.cfg_path, cls)
-            node_fp = os.path.join(root, 'cfg_embeddings', f"{self.base}.npz")
+            cfg_emb_dir = os.path.join(root, 'cfg_embeddings')
+            node_fp = os.path.join(cfg_emb_dir, f"{self.base}.npz")
             #print(node_fp)
             if not os.path.exists(node_fp):
-                pattern = os.path.join(root, 'cfg_embeddings', f"*_{self.base}_exe.npz")
-                #print(pattern)
-                matches = [p for p in glob.glob(pattern) if '_exe_sparse_matrix.npz' not in p]
+                suffix = f"_{self.base}_exe.npz"
+                matches = [f for f in _list_node_files(cfg_emb_dir) if f.endswith(suffix)]
                 #print(matches)
                 if not matches:
                     continue
-                node_fp = matches[0]
+                node_fp = os.path.join(cfg_emb_dir, matches[0])
 
             sparse_fp = node_fp.replace('_exe.npz', '_exe_sparse_matrix.npz')
             if not os.path.exists(sparse_fp):
@@ -219,8 +235,6 @@ def load_matched_graphs(npz_path, pass_key, pred_key, true_label_key):
         if ds:
             #print(ds[0].y)
             matched.append(ds[0])
-        else:
-            print(f"No graph representation for {img_path}")
 
 
     return list_to_spektral_dataset(matched)
