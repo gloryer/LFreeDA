@@ -93,9 +93,7 @@ We've kept the cell outputs saved in the notebook so you can compare against the
 ### Step III: Adaptation with selected pseudo-labels (~5.7 hrs)
 By default, run each command below as-is — the Lower bound, Warm-start, and AdvDA variants already load from the precomputed `data/stepII_constructed_datasets/mb24/aug/`. The Upper bound variants use ground-truth labels directly and don't depend on Step II's output at all.
 
-Every variant below accepts `--epochs` (default: 60, matching Step I's convention). For this artifact, run each with `--epochs 20` to keep the evaluation within a reasonable time budget — the runtimes below reflect that.
-
-Run each variant to reproduce the corresponding point in Figure 6:
+Run each command to train the step III models and reports test accuracy for the July→Aug task. 
 
 | Method | Command | Approx. runtime (`--epochs 20`) |
 |---|---|---|
@@ -108,8 +106,6 @@ Run each variant to reproduce the corresponding point in Figure 6:
 | Upper bound (ResNet) | `python StepIII/Images/Upper_bound/train_mb24+_aug.py --epochs 20` | ~5.4 min |
 | Upper bound (GIN) | `python StepIII/CFGs/Upper_bound/train_mb24+_aug.py --epochs 20` | 85.8 min |
 
-> [!NOTE]
-> Runtimes marked `~` are scaled down from a prior measurement taken at that script's old, higher hardcoded epoch count (30–50) and not freshly re-benchmarked — treat them as approximate. Unmarked rows were already measured at 20 epochs, so those figures are unchanged.
 
 <details>
 <summary><strong>Optional: edit the data-loading path to use your own Step II output</strong></summary>
