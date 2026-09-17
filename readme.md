@@ -6,8 +6,6 @@
 
 *The official code for "LFreeDA: Label-Free Drift Adaptation for Windows Malware Detection", accepted by ACSAC 2026.*
 
----
-
 ## Table of Contents
 
 - [Hardware Specifications](#hardware-specifications)
