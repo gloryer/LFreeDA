@@ -20,7 +20,7 @@ Running this artifact takes you through one representative task, end to end, usi
 
 ## What this artifact reproduces
 
-Using the reduced-epoch, single-task run described above, this artifact reproduces the following paper results — compare your output against the reference values under [Expected results](#expected-results), allowing for normal run-to-run variance rather than an exact match:
+This artifact reproduces the following paper results — see [Expected results](#expected-results) for the reference values to compare against:
 
 - **Figure 3** (Step I performance) — for the July→Aug task only and for LFreeDA's Step I method only.
 - **Table 6** (Step II accuracy, coverage, and ACS for five outlier detection methods) — for the July→Aug task only (under the "Aug testing" column). We additionally report pseudo-label accuracy under two settings described in the paper (original / confidence filtering only). Note that Figure 5 in the paper reports this **averaged across all five tasks**, so it isn't directly comparable to a single-task rerun — see the July→Aug-specific reference values under [Expected results](#expected-results) below instead.
