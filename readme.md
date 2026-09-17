@@ -25,6 +25,9 @@ We have successfully run the code with the following hardware:
 
 Additionally, we recommend at least 170 GB of available disk space for the downloaded data (~159 GB).
 
+> [!NOTE]
+> The 96 GB memory figure is needed for the graph-feature (CFGs/GIN) experiments.
+
 ## Installation
 
 Please follow these steps to set up the environment:
