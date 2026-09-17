@@ -33,7 +33,7 @@ We have successfully run the code with the following hardware:
 > [!NOTE]
 > The 96 GB memory figure is needed for the graph-feature (CFGs/GIN) experiments.
 
----
+
 
 ## Installation
 
@@ -46,7 +46,7 @@ Please follow these steps to set up the environment:
    - Open a new terminal, then activate it: `conda activate lfreeda`.
    - When you're done and want to clean up, run `bash uninstall_env.sh` to remove both the `lfreeda` environment and the Miniforge install.
 
----
+
 
 ## Artifact (Scaled-Down, For Artifact Evaluation)
 
@@ -56,7 +56,7 @@ For artifact evaluation, we instead provide a **scaled-down, end to end, fully r
 
 The instructions below cover the **full 5-task pipeline (all months, full training epoches,  not required for artifact evaluation)** and are provided for future research.
 
----
+
 
 ## Full Reproduction on MB-24+ (All Five Tasks — Not Required for Artifact Evaluation)
 ### Step I: Pseudo-label Generation
@@ -131,7 +131,7 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 </details>
 
----
+
 
 ## Data
 
@@ -150,7 +150,7 @@ data/
 
 `stepI_trained_models/` and `stepII_constructed_datasets/` contain our own precomputed Step I and Step II outputs, used by default.
 
----
+
 
 ## MB-24+ Original Binaries
 
@@ -161,7 +161,6 @@ Note: Due to copyright restrictions, we are unable to share the Windows benign s
 > [!IMPORTANT]
 > For how to extract graph features from binaries, please see [malware-detection-concept-drift](https://github.com/gloryer/malware-detection-concept-drift) for details.
 
----
 
 ## Citation
 
