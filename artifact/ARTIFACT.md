@@ -14,7 +14,7 @@
 
 ## Scope
 
-This artifact provides a **scaled-down, fully reproducible demonstration of LFreeDA on a single adaptation task: July → August 2024**. The paper's full evaluation spans five rolling adaptation tasks (July→Aug, Aug→Sep, Sep→Oct, Oct→Nov, Nov→Dec), each taking ~9 hours end-to-end on a single GPU (see per-step breakdown below) — ~45 GPU-hours total, which isn't practical within a typical artifact evaluation window.
+This artifact provides a **scaled-down, fully reproducible demonstration of LFreeDA on a single adaptation task: July → August 2024**. The paper's full evaluation spans five rolling adaptation tasks (July→Aug, Aug→Sep, Sep→Oct, Oct→Nov, Nov→Dec) at full training epochs, each taking ~6.5 hours end-to-end on a single GPU — ~32.5 GPU-hours total, which isn't practical within a typical artifact evaluation window.
 
 Running this artifact fully reproduces one representative task and lets you independently verify the corresponding numbers reported in the paper. Code for all five tasks is in the main repository, documented in the top-level [readme.md](../readme.md) — provided for future research, but **not** part of this artifact's evaluation scope.
 
