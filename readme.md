@@ -17,6 +17,7 @@
   - [Step III: Adaptation with Selected Pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels)
 - [Data](#data)
 - [MB-24+ Original Binaries](#mb-24-original-binaries)
+- [Ethics](#ethics)
 - [Citation](#citation)
 
 ## Hardware Specifications
@@ -161,6 +162,9 @@ Note: Due to copyright restrictions, we are unable to share the Windows benign s
 > [!IMPORTANT]
 > For how to extract graph features from binaries, please see [malware-detection-concept-drift](https://github.com/gloryer/malware-detection-concept-drift) for details.
 
+## Ethics
+
+All data used in this project is sourced from public sources: malware samples are referenced by SHA-256 hash and obtained from [MalwareBazaar](https://bazaar.abuse.ch/), a public malware-sharing platform for security researchers; benign samples are derived from publicly distributed software installers. No human subjects or personally identifiable information are involved.
 
 ## Citation
 
