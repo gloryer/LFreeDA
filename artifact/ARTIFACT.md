@@ -153,6 +153,8 @@ Pseudo-label accuracy under the three settings:
 
 ### Step III (Figure 6, Aug testing)
 
+`Accuracy`/`F1` are the paper's reported values (full training epochs); `Reproduced Accuracy`/`Reproduced F1` are from this artifact's run (`--epochs 20`).
+
 | Method | Accuracy | F1 | Reproduced Accuracy | Reproduced F1 |
 |---|---|---|---|---|
 | Lower bound (ResNet) | 75.7 | 72.1 | 76.7 | 73.2 |
@@ -164,5 +166,3 @@ Pseudo-label accuracy under the three settings:
 | Upper bound (ResNet) | 86.4 | 82.1 | 83.8 | 80.6 |
 | Upper bound (GIN) | 84.2 | 82.5 | 82.5 | 80.2 |
 
-> [!NOTE]
-> Results across runs may vary slightly due to stochastic training.
