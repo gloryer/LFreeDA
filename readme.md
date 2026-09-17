@@ -11,7 +11,7 @@ The official code for "LFreeDA: Label-Free Drift Adaptation for Windows Malware 
   - [Step I: Pseudo-label Generation](#step-i-pseudo-label-generation)
   - [Step II: Pseudo-label Selection](#step-ii-pseudo-label-selection)
   - [Step III: Adaptation with Selected Pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels)
-- [Data](#data-140gb)
+- [Data](#data)
 - [MB-24+ Original Binaries](#mb-24-original-binaries)
 - [Citation](#citation)
 
@@ -30,7 +30,7 @@ Additionally, we recommend at least 170 GB of available disk space for the downl
 Please follow these steps to set up the environment:
 
 1. Install the Hugging Face CLI: `pip install -U "huggingface_hub[cli]"`.
-2. Download the dataset from Hugging Face directly into a `data/` folder under the current directory: `hf download AdrianLI1/LFreeDA --repo-type dataset --local-dir data`. Everything must end up under a top-level `data/` folder (i.e. `data/graph_features/`, `data/labels/`, etc., not nested one level deeper) for the code to find it. Note: downloading takes a while depending on your connection — the dataset is ~159 GB.
+2. Download the [dataset](https://huggingface.co/datasets/AdrianLI1/LFreeDA) from Hugging Face directly into a `data/` folder under the current directory: `hf download AdrianLI1/LFreeDA --repo-type dataset --local-dir data`. Everything must end up under a top-level `data/` folder (i.e. `data/graph_features/`, `data/labels/`, etc., not nested one level deeper) for the code to find it. Note: downloading takes a while depending on your connection — the dataset is ~159 GB.
 3. Set up the environment:
    - Run `bash setup_env.sh` — installs a self-contained Miniforge and the `lfreeda` conda environment, and verifies GPU support is detected.
    - Open a new terminal, then activate it: `conda activate lfreeda`.
@@ -117,7 +117,9 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 </details>
 
-## Data (140GB)
+## Data
+
+[<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face" width="20" style="vertical-align: middle;"> Dataset on Hugging Face](https://huggingface.co/datasets/AdrianLI1/LFreeDA)
 
 ```plaintext
 data/
