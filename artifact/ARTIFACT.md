@@ -108,7 +108,6 @@ Run each command to train the step III models and reports test accuracy for the 
 | Upper bound (ResNet) | `python StepIII/Images/Upper_bound/train_mb24+_aug.py --epochs 20` | 2.9 min |
 | Upper bound (GIN) | `python StepIII/CFGs/Upper_bound/train_mb24+_aug.py --epochs 20` | 28.6 min |
 
-
 <details>
 <summary><strong>Optional: edit the data-loading path to use your own Step II output</strong></summary>
 
