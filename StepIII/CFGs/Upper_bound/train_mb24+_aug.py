@@ -4,7 +4,6 @@ import time
 import numpy as np
 import tensorflow as tf
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
 from tensorflow.python.ops.numpy_ops import np_config
 from pathlib import Path
 from tensorflow.keras.optimizers import Adam
@@ -19,7 +18,7 @@ script_path = Path(__file__).resolve().parent.parent
 sys.path.append(str(script_path))
 
 from GraphMatching.graph_matching import GraphData
-from Utils.utils import merge_dataset, binary_label, MacroF1
+from Utils.utils import merge_dataset, binary_label, MacroF1, train_test_split
 from model import GIN0
 
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
@@ -133,19 +132,9 @@ if __name__ == "__main__":
     batch_size = 16  # Batch size
     num_classes = 2
 
-    print("Source malware size: {}".format(len(source_malware)))
-    print("Source normal size: {}".format(len(source_normal)))
-    print("Target malware train size: {}".format(len(target_malware_train)))
-    print("Target malware test size: {}".format(len(target_malware_test)))
-    print("Target normal size: {}".format(len(target_normal)))
-
     for i in range(1):
         print("--------------------------{} run-------------------------".format(i))
 
-
-        print("Source training set size is {}".format(len(source_train)))
-        print("Target training set size is {}".format(len(target_train)))
-        print("Target testing set size is {}".format(len(target_test)))
 
 
 

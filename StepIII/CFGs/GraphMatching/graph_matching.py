@@ -272,9 +272,16 @@ class GraphData(Dataset):
             sparse_matrix = sp.load_npz(fullpath_sp)
             sparse_matrix = sparse_matrix.astype('float32')
             
-            #this is new, if the sparse_matrix size is over 46000 by 46000 ,we skipped it since
-            # we are unable to allocate that much memory for an array with that shape 
-            if sparse_matrix.shape[0] > 46000: 
+            # Upper_bound is the only GIN variant that loads every graph for a
+            # given month/dataset up front (Lower_bound/Warm_start/AdvDA filter
+            # per-image via GraphData_normal/GraphData_mb24, which keep the
+            # original 46000 cap). At 46000 this class alone needs ~65.5GB to
+            # hold the July->Aug task's 19513 graphs (99.5% of 19610), which
+            # OOMs in this repo's ~58GB budget. 34000 is the final choice --
+            # 30000 (48.2min, 80.2/78.3 acc/F1) and 38000 (OOM) were both
+            # tried; 34000 succeeds (28.6min, 82.5/80.2 acc/F1, peaking at
+            # ~97% memory -- there's no headroom left to raise this further).
+            if sparse_matrix.shape[0] > 34000:
                 continue
            
             #with open(fullpath, 'rb') as f2:
@@ -291,7 +298,7 @@ class GraphData(Dataset):
             edges = adj_tuple[0]
             
             
-            if data["x"].shape[0] >=10 and edges.shape[0] >= 3 and sparse_matrix.shape[0] <=46000:
+            if data["x"].shape[0] >=10 and edges.shape[0] >= 3 and sparse_matrix.shape[0] <=34000:
                 output.append(Graph(x=data['x'], a= sparse_matrix, y=data['y']))
                 
                

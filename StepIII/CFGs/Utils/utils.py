@@ -88,6 +88,16 @@ def merge_dataset(dataset1, dataset2):
     return merged 
 
 
+def train_test_split(dataset, train_percentage):
+    # Train/test split
+    idxs = np.random.permutation(len(dataset))
+    split = int(train_percentage * len(dataset))
+    idx_tr, idx_te = np.split(idxs, [split])
+    dataset_tr, dataset_te = dataset[idx_tr], dataset[idx_te]
+
+    return dataset_tr, dataset_te
+
+
 def binary_label(dataset, flag_attack):
     
     for g in dataset: 

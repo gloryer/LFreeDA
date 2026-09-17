@@ -9,7 +9,7 @@
 - [How to run](#how-to-run)
   - [Step I: Pseudo-label generation](#step-i-pseudo-label-generation-122-min)
   - [Step II: Pseudo-label selection](#step-ii-pseudo-label-selection-5-min)
-  - [Step III: Adaptation with selected pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels-37-hrs)
+  - [Step III: Adaptation with selected pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels-28-hrs)
 - [Expected results](#expected-results)
 
 ## Scope
@@ -90,7 +90,7 @@ We've kept the cell outputs saved in the notebook so you can compare against the
 
 </details>
 
-### Step III: Adaptation with selected pseudo-labels (~3.7 hrs)
+### Step III: Adaptation with selected pseudo-labels (~2.8 hrs)
 By default, run each command below as-is — the Lower bound, Warm-start, and AdvDA variants already load from the precomputed `data/stepII_constructed_datasets/mb24/aug/`. The Upper bound variants use ground-truth labels directly and don't depend on Step II's output at all.
 
 Run each command to train the step III models and reports test accuracy for the July→Aug task. 
@@ -104,7 +104,7 @@ Run each command to train the step III models and reports test accuracy for the 
 | AdvDA + CNN | `python StepIII/Images/AdvDA/train_mb24+_aug.py --epochs 20` | 3.6 min |
 | AdvDA + GIN | `python StepIII/CFGs/AdvDA/train_mb24+_aug.py --epochs 20` | 73.1 min |
 | Upper bound (ResNet) | `python StepIII/Images/Upper_bound/train_mb24+_aug.py --epochs 20` | 2.9 min |
-| Upper bound (GIN) | `python StepIII/CFGs/Upper_bound/train_mb24+_aug.py --epochs 20` | 85.8 min |
+| Upper bound (GIN) | `python StepIII/CFGs/Upper_bound/train_mb24+_aug.py --epochs 20` | 28.6 min |
 
 
 <details>
@@ -114,7 +114,7 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 </details>
 
-**Total estimated runtime: ~4.0 hours** (Step I + Step II + all Step III variants above).
+**Total estimated runtime: ~3.1 hours** (Step I + Step II + all Step III variants above).
 
 ## Expected results
 
@@ -160,7 +160,7 @@ Pseudo-label accuracy under the three settings:
 | AdvDA + CNN | 81.8 | 77.9 | 82.5 | 78.9 |
 | AdvDA + GIN | 81.2 | 79.4 | 81.3 | 79.4 |
 | Upper bound (ResNet) | 86.4 | 82.1 | 83.8 | 80.6 |
-| Upper bound (GIN) | 84.2 | 82.5 | — | — |
+| Upper bound (GIN) | 84.2 | 82.5 | 82.5 | 80.2 |
 
 > [!NOTE]
 > Results across runs may vary slightly due to stochastic training.

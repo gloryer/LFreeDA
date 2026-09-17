@@ -23,10 +23,7 @@ We have successfully run the code with the following hardware:
 - GPU: NVIDIA RTX 4090 (24GB)
 - Memory: 96 GB RAM
 
-Additionally, we recommend at least 170 GB of available disk space for the downloaded data (~159 GB).
-
-> [!NOTE]
-> The 96 GB memory figure is needed for the graph-feature (CFGs/GIN) experiments.
+Additionally, we recommend at least 170 GB of available disk space for the downloaded data (~159 GB). The 96 GB memory figure is needed for the graph-feature (CFGs/GIN) experiments.
 
 ## Installation
 
@@ -43,9 +40,9 @@ Please follow these steps to set up the environment:
 
 Reproducing our full evaluation requires running the Step I + Step II + Step III pipeline across all five rolling adaptation tasks (July→Aug, Aug→Sep, Sep→Oct, Oct→Nov, Nov→Dec) on the MB-24+ dataset. On a single GPU, one task takes approximately 9 hours end-to-end, so a full reproduction (~45 GPU-hours) is not practical for artifact evaluation.
 
-For artifact evaluation, we instead provide a **scaled-down, fully reproducible demonstration on a single adaptation task (July → August)**, requiring ~9 hours. The artifact is available in the [`artifact/`](artifact/) directory — see [`artifact/ARTIFACT.md`](artifact/ARTIFACT.md) for instructions, expected results, and environment details.
+For artifact evaluation, we instead provide a **scaled-down, end to end, fully reproducible demo on a single adaptation task (July → August)**, requiring only ~9 hours to complete. The artifact is available in the [`artifact/`](artifact/) directory — see [`artifact/ARTIFACT.md`](artifact/ARTIFACT.md) for instructions, expected results, and environment details.
 
-The instructions below cover the **full 5-task pipeline (all months, not required for artifact evaluation)** and are provided for future research.
+The instructions below cover the **full 5-task pipeline (all months, full training epoches,  not required for artifact evaluation)** and are provided for future research.
 
 ## Full Reproduction on MB-24+ (All Five Tasks — Not Required for Artifact Evaluation)
 ### Step I: Pseudo-label Generation
