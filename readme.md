@@ -1,6 +1,12 @@
 # LFreeDA: Label-Free Drift Adaptation for Windows Malware Detection
 
-The official code for "LFreeDA: Label-Free Drift Adaptation for Windows Malware Detection", accepted by ACSAC 2026.
+[![ACSAC 2026](https://img.shields.io/badge/ACSAC-2026-blue)](#citation)
+[![Python 3.8](https://img.shields.io/badge/Python-3.8-blue?logo=python&logoColor=white)](environment.yml)
+[![License: CC0-1.0](https://img.shields.io/badge/License-CC0--1.0-lightgrey)](LICENSE)
+
+*The official code for "LFreeDA: Label-Free Drift Adaptation for Windows Malware Detection", accepted by ACSAC 2026.*
+
+---
 
 ## Table of Contents
 
@@ -19,11 +25,17 @@ The official code for "LFreeDA: Label-Free Drift Adaptation for Windows Malware 
 
 We have successfully run the code with the following hardware:
 
-- vCPU: 16 (AMD Ryzen 9 7950X 16-Core Processor)
-- GPU: NVIDIA RTX 4090 (24GB)
-- Memory: 96 GB RAM
+| Component | Spec |
+|---|---|
+| vCPU | 16 (AMD Ryzen 9 7950X 16-Core Processor) |
+| GPU | NVIDIA RTX 4090 (24 GB) |
+| Memory | 96 GB RAM |
+| Disk | ≥170 GB free (dataset is ~159 GB) |
 
-Additionally, we recommend at least 170 GB of available disk space for the downloaded data (~159 GB). The 96 GB memory figure is needed for the graph-feature (CFGs/GIN) experiments.
+> [!NOTE]
+> The 96 GB memory figure is needed for the graph-feature (CFGs/GIN) experiments.
+
+---
 
 ## Installation
 
@@ -36,6 +48,8 @@ Please follow these steps to set up the environment:
    - Open a new terminal, then activate it: `conda activate lfreeda`.
    - When you're done and want to clean up, run `bash uninstall_env.sh` to remove both the `lfreeda` environment and the Miniforge install.
 
+---
+
 ## Artifact (Scaled-Down, For Artifact Evaluation)
 
 Reproducing our full evaluation requires running the Step I + Step II + Step III pipeline (full training epochs) across all five rolling adaptation tasks (July→Aug, Aug→Sep, Sep→Oct, Oct→Nov, Nov→Dec) on the MB-24+ dataset. On a single GPU, one task takes approximately 6.5 hours end-to-end, so a full reproduction (~32.5 GPU-hours) is not practical for artifact evaluation.
@@ -43,6 +57,8 @@ Reproducing our full evaluation requires running the Step I + Step II + Step III
 For artifact evaluation, we instead provide a **scaled-down, end to end, fully reproducible demo on a single adaptation task (July → August), using reduced training epochs**, requiring only ~3.1 hours to complete. The artifact is available in the [`artifact/`](artifact/) directory — see [`artifact/ARTIFACT.md`](artifact/ARTIFACT.md) for instructions, expected results, and environment details.
 
 The instructions below cover the **full 5-task pipeline (all months, full training epoches,  not required for artifact evaluation)** and are provided for future research.
+
+---
 
 ## Full Reproduction on MB-24+ (All Five Tasks — Not Required for Artifact Evaluation)
 ### Step I: Pseudo-label Generation
@@ -117,6 +133,8 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 </details>
 
+---
+
 ## Data
 
 The full dataset (~159 GB) is hosted on the Hugging Face Hub:
@@ -134,6 +152,8 @@ data/
 
 `stepI_trained_models/` and `stepII_constructed_datasets/` contain our own precomputed Step I and Step II outputs, used by default.
 
+---
+
 ## MB-24+ Original Binaries
 
 Original malware binaries can be downloaded from [MalwareBazaar](https://bazaar.abuse.ch/) using the provided SHA-256 hashes. SHA-256 hashes are listed by month in [`data/labels/mb24`](data/labels/mb24).
@@ -142,6 +162,8 @@ Note: Due to copyright restrictions, we are unable to share the Windows benign s
 
 > [!IMPORTANT]
 > For how to extract graph features from binaries, please see [malware-detection-concept-drift](https://github.com/gloryer/malware-detection-concept-drift) for details.
+
+---
 
 ## Citation
 
