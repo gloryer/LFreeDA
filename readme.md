@@ -119,7 +119,9 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 ## Data
 
-[<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face" width="20" style="vertical-align: middle;"> Dataset on Hugging Face](https://huggingface.co/datasets/AdrianLI1/LFreeDA)
+The full dataset (~159 GB) is hosted on the Hugging Face Hub:
+
+[![Dataset on Hugging Face](https://img.shields.io/badge/Dataset-AdrianLI1%2FLFreeDA-FFD21E?logo=huggingface&logoColor=white)](https://huggingface.co/datasets/AdrianLI1/LFreeDA)
 
 ```plaintext
 data/
