@@ -171,7 +171,7 @@ If you use the code or dataset used here, please cite our paper:
 @inproceedings{lfreeda2026,
   title     = {LFreeDA: Label-Free Drift Adaptation for Windows Malware Detection},
   author    = {Adrian and Shuai Li and Elisa Bertino},
-  booktitle = {Annual Computer Security Applications Conference (ACSAC)},
+  booktitle = {2026 IEEE Annual Computer Security Applications Conference (ACSAC)},
   year      = {2026}
 }
 ```
