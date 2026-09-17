@@ -23,14 +23,14 @@ We have successfully run the code with the following hardware:
 - GPU: NVIDIA RTX 4090 (24GB)
 - Memory: 96 GB RAM
 
-Additionally, we recommend at least 300 GB of available disk space: downloading `data.tar.gz` (~117 GB) and extracting it (~149 GB) requires both to exist on disk at once.
+Additionally, we recommend at least 170 GB of available disk space for the downloaded data (~159 GB).
 
 ## Installation
 
 Please follow these steps to set up the environment:
 
-1. Download the data from Zenodo and place it under the current directory.
-2. Run `tar -xzvf data.tar.gz` to unpack the compressed file, and do not change the name of the extracted folder (the name should be `data/`). Note: unpacking takes a while — around 50 minutes on the hardware listed above.
+1. Install the Hugging Face CLI: `pip install -U "huggingface_hub[cli]"`.
+2. Download the dataset from Hugging Face directly into a `data/` folder under the current directory: `hf download AdrianLI1/LFreeDA --repo-type dataset --local-dir data`. Everything must end up under a top-level `data/` folder (i.e. `data/graph_features/`, `data/labels/`, etc., not nested one level deeper) for the code to find it. Note: downloading takes a while depending on your connection — the dataset is ~159 GB.
 3. Set up the environment:
    - Run `bash setup_env.sh` — installs a self-contained Miniforge and the `lfreeda` conda environment, and verifies GPU support is detected.
    - Open a new terminal, then activate it: `conda activate lfreeda`.
