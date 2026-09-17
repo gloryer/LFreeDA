@@ -16,9 +16,11 @@
 
 This artifact provides a **scaled-down, fully reproducible demonstration of LFreeDA on a single adaptation task: July → August 2024**. The paper's full evaluation spans five rolling adaptation tasks (July→Aug, Aug→Sep, Sep→Oct, Oct→Nov, Nov→Dec) at full training epochs, each taking ~6.5 hours end-to-end on a single GPU — ~32.5 GPU-hours total, which isn't practical within a typical artifact evaluation window.
 
-Running this artifact fully reproduces one representative task and lets you independently verify the corresponding numbers reported in the paper. Code for all five tasks is in the main repository, documented in the top-level [readme.md](../readme.md) — provided for future research, but **not** part of this artifact's evaluation scope.
+Running this artifact takes you through one representative task, end to end, using reduced training epochs to keep runtime practical. This lets you independently verify that the pipeline works and compare your results against the reference values under [Expected results](#expected-results) below — the goal is a result consistent with the paper within normal run-to-run variance, not an exact match. Code for the full 5-task, full-epoch reproduction is in the main repository, documented in the top-level [readme.md](../readme.md) — provided for future research, but **not** part of this artifact's evaluation scope.
 
 ## What this artifact reproduces
+
+Using the reduced-epoch, single-task run described above, this artifact reproduces the following paper results — compare your output against the reference values under [Expected results](#expected-results), allowing for normal run-to-run variance rather than an exact match:
 
 - **Figure 3** (Step I performance) — for the July→Aug task only and for LFreeDA's Step I method only.
 - **Table 6** (Step II accuracy, coverage, and ACS for five outlier detection methods) — for the July→Aug task only (under the "Aug testing" column). We additionally report pseudo-label accuracy under two settings described in the paper (original / confidence filtering only). Note that Figure 5 in the paper reports this **averaged across all five tasks**, so it isn't directly comparable to a single-task rerun — see the July→Aug-specific reference values under [Expected results](#expected-results) below instead.
