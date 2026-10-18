@@ -112,10 +112,10 @@ The setting Figure 5 in the paper reports as an average across all five tasks, s
 We've kept the cell outputs saved in the notebook so you can compare against the expected results.
 
 <details>
-<summary><strong>Model selection and saved datasets</strong></summary>
+<summary><strong>Optional: evaluate a different Step I model, or save the constructed datasets</strong></summary>
 
 - To evaluate a different Step I model, point the model-loading cell at `results/stepI_trained_models_scratch/mb24/aug/{generator,classifier}`.
-- The last cell already saves the constructed datasets to `results/stepII_constructed_datasets_scratch/mb24/aug/`. Running all cells performs this step automatically.
+- To also save the constructed datasets, uncomment the save block in the last cell — output goes to `results/stepII_constructed_datasets_scratch/mb24/aug/`.
 
 </details>
 
