@@ -28,18 +28,45 @@ This artifact reproduces the following paper results — see [Expected results](
 
 ## Environment
 
-See [Hardware Specifications](../readme.md#hardware-specifications) and [Installation](../readme.md#installation) in the main README — this artifact uses the same environment and setup as the full reproduction (only the scope differs).
+For training, use the Python 3.8 GPU environment described in the main README. If you need to create it, run `bash setup_env.sh` from the repository root, then open a new terminal and run `conda activate lfreeda`.
 
 ## Data required
 
-This artifact ships the data needed for the July → August task:
-- `data/graph_features/mb24/{July,Aug}`
-- `data/image_features/mb24/{july,aug}`
-- `data/labels/mb24/{July,Aug}`
+The complete July-to-August artifact subset contains **64,261 files**, totaling **106.24 GB** (98.95 GiB).
+
+The [manifest](artifact-manifest.tsv) lists the expected files, sizes, and SHA-256 hashes; the [checksum list](artifact-SHA256SUMS) supports the optional check below.
+
+- `data/graph_features/mb24/{March,April,May,July,Aug}/`
+- `data/image_features/mb24/{march,april,may,july,aug}/`
+- `data/labels/mb24/{March,April,May,July,Aug}/`
+- `data/graph_features/benign_source/{dataset1,dataset2,dataset3,dataset4}/`
+- `data/graph_features/benign_target/{dataset1,dataset2,dataset3,dataset4}/`
+- `data/image_features/benign_source/{dataset1,dataset2,dataset3,dataset4}/`
+- `data/image_features/benign_target/{dataset1,dataset2,dataset3,dataset4}/`
 - `data/stepI_trained_models/mb24/aug/` — trained Step I model, used by default
 - `data/stepII_constructed_datasets/mb24/aug/` — precomputed Step II output, used by default
 
+
 We include these precomputed intermediate outputs so each step can be validated independently by default, which makes review simpler and less fragile to any single step's variance.
+
+Run these commands from the **LFreeDA repository root** to download the artifact subset.
+
+```bash
+python -m pip install requests
+python download_data.py --dest data --workers 8
+```
+
+**Download time:** In our test, downloading the complete subset with `--workers 8` took approximately **42 minutes**, excluding optional checksum verification.
+
+The downloader automatically waits and retries HTTP 429 responses. If its bounded retries are exhausted, rerun the same command later. Existing files are skipped.
+
+**Optional checksum verification:**
+
+```bash
+(cd data && sha256sum --quiet -c ../artifact/artifact-SHA256SUMS)
+```
+
+The checksum command reads the full 106.24 GB and can take a while. Successful verification finishes silently with exit status 0.
 
 ## How to run
 
@@ -85,10 +112,10 @@ The setting Figure 5 in the paper reports as an average across all five tasks, s
 We've kept the cell outputs saved in the notebook so you can compare against the expected results.
 
 <details>
-<summary><strong>Optional: evaluate a different Step I model, or save the constructed datasets</strong></summary>
+<summary><strong>Model selection and saved datasets</strong></summary>
 
 - To evaluate a different Step I model, point the model-loading cell at `results/stepI_trained_models_scratch/mb24/aug/{generator,classifier}`.
-- To also save the constructed datasets, uncomment the save block in the last cell — output goes to `results/stepII_constructed_datasets_scratch/mb24/aug/`.
+- The last cell already saves the constructed datasets to `results/stepII_constructed_datasets_scratch/mb24/aug/`. Running all cells performs this step automatically.
 
 </details>
 

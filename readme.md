@@ -38,10 +38,25 @@ We have successfully run the code with the following hardware:
 
 ## Installation
 
-Please follow these steps to set up the environment:
+Run the commands below from the LFreeDA repository root.
 
-1. Install the Hugging Face CLI: `pip install -U "huggingface_hub[cli]"`.
-2. Download the [dataset](https://huggingface.co/datasets/AdrianLI1/LFreeDA) from Hugging Face directly into a `data/` folder under the current directory: `hf download AdrianLI1/LFreeDA --repo-type dataset --local-dir data`. Everything must end up under a top-level `data/` folder (i.e. `data/graph_features/`, `data/labels/`, etc., not nested one level deeper) for the code to find it. Note: downloading takes a while depending on your connection — the dataset is ~159 GB.
+1. Install the download dependency:
+
+   ```bash
+   python -m pip install requests
+   ```
+
+2. Download the complete [dataset](https://huggingface.co/datasets/AdrianLI1/LFreeDA) with [`download_data.py`](download_data.py):
+
+   ```bash
+   python download_data.py --all --dest data --workers 8
+   ```
+
+   The full dataset is approximately **159 GB**. Files are placed directly under `data` folder.
+
+   The downloader automatically waits and retries HTTP 429 responses. Retries are bounded; if they are exhausted, rerun the same command later. Existing files are skipped.
+
+
 3. Set up the environment:
    - Run `bash setup_env.sh` — installs a self-contained Miniforge and the `lfreeda` conda environment, and verifies GPU support is detected.
    - Open a new terminal, then activate it: `conda activate lfreeda`.
