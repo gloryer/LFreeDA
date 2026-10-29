@@ -14,7 +14,7 @@
 
 ## Scope
 
-This artifact provides a **scaled-down, fully reproducible demonstration of LFreeDA on a single adaptation task: July → August 2024**. The paper's full evaluation spans five rolling adaptation tasks (July→Aug, Aug→Sep, Sep→Oct, Oct→Nov, Nov→Dec) at full training epochs, each taking ~6.5 hours end-to-end on a single GPU — ~32.5 GPU-hours total, which isn't practical within a typical artifact evaluation window.
+This artifact provides a **scaled-down, fully reproducible demonstration of LFreeDA on a single adaptation task: July → August 2024**. The paper's full evaluation spans five rolling adaptation tasks (July→Aug, Aug→Sep, Sep→Oct, Oct→Nov, Nov→Dec) at full training epochs, each taking ~6.5 hours of wall-clock time end-to-end on a single GPU — ~32.5 hours total when run sequentially, which isn't practical within a typical artifact evaluation window.
 
 Running this artifact takes you through one representative task, end to end, using reduced training epochs to keep runtime practical. This lets you independently verify that the pipeline works and compare your results against the reference values under [Expected results](#expected-results) below — the goal is a result consistent with the paper within normal run-to-run variance, not an exact match. Code for the full 5-task, full-epoch reproduction is in the main repository, documented in the top-level [readme.md](../readme.md) — provided for future research, but **not** part of this artifact's evaluation scope.
 
@@ -69,6 +69,9 @@ The downloader automatically waits and retries HTTP 429 responses. If its bounde
 The checksum command reads the full 106.24 GB and can take a while. Successful verification finishes silently with exit status 0.
 
 ## How to run
+
+> [!NOTE]
+> The reported runtime for each step is approximate **wall-clock time**, measured on an NVIDIA RTX 4090 (24 GB) using the [hardware listed in the README](../readme.md#hardware-specifications).
 
 ### Step I: Pseudo-label generation (~12.2 min)
 ```bash
@@ -142,7 +145,7 @@ If you generated your own constructed dataset in Step II above, first edit the d
 
 </details>
 
-**Total estimated runtime: ~3.1 hours** (Step I + Step II + all Step III variants above).
+**Total estimated wall-clock runtime: ~3.1 hours** (Step I + Step II + all Step III variants above).
 
 ## Expected results
 

@@ -16,6 +16,7 @@
   - [Step II: Pseudo-label Selection](#step-ii-pseudo-label-selection)
   - [Step III: Adaptation with Selected Pseudo-labels](#step-iii-adaptation-with-selected-pseudo-labels)
 - [Data](#data)
+- [Feature Extraction](#feature-extraction)
 - [MB-24+ Original Binaries](#mb-24-original-binaries)
 - [Ethics](#ethics)
 - [Citation](#citation)
@@ -57,6 +58,9 @@ Run the commands below from the LFreeDA repository root.
    The downloader automatically waits and retries HTTP 429 responses. Retries are bounded; if they are exhausted, rerun the same command later. Existing files are skipped.
 
 
+> [!WARNING]
+> `setup_env.sh` runs `conda init bash`, which adds or updates Conda initialization in `~/.bashrc`. This changes the startup configuration for future Bash sessions.
+
 3. Set up the environment:
    - Run `bash setup_env.sh` — installs a self-contained Miniforge and the `lfreeda` conda environment, and verifies GPU support is detected.
    - Open a new terminal, then activate it: `conda activate lfreeda`.
@@ -66,9 +70,9 @@ Run the commands below from the LFreeDA repository root.
 
 ## Artifact (Scaled-Down, For Artifact Evaluation)
 
-Reproducing our full evaluation requires running the Step I + Step II + Step III pipeline (full training epochs) across all five rolling adaptation tasks (July→Aug, Aug→Sep, Sep→Oct, Oct→Nov, Nov→Dec) on the MB-24+ dataset. On a single GPU, one task takes approximately 6.5 hours end-to-end, so a full reproduction (~32.5 GPU-hours) is not practical for artifact evaluation.
+Reproducing our full evaluation requires running the Step I + Step II + Step III pipeline (full training epochs) across all five rolling adaptation tasks (July→Aug, Aug→Sep, Sep→Oct, Oct→Nov, Nov→Dec) on the MB-24+ dataset. On a single GPU, one task takes approximately 6.5 hours of wall-clock time end-to-end, so a full reproduction (~32.5 hours when run sequentially) is not practical for artifact evaluation.
 
-For artifact evaluation, we instead provide a **scaled-down, end to end, fully reproducible demo on a single adaptation task (July → August), using reduced training epochs**, requiring only ~3.1 hours to complete. The artifact is available in the [`artifact/`](artifact/) directory — see [`artifact/ARTIFACT.md`](artifact/ARTIFACT.md) for instructions, expected results, and environment details.
+For artifact evaluation, we instead provide a **scaled-down, end to end, fully reproducible demo on a single adaptation task (July → August), using reduced training epochs**, requiring only ~3.1 hours of wall-clock time to complete. The artifact is available in the [`artifact/`](artifact/) directory — see [`artifact/ARTIFACT.md`](artifact/ARTIFACT.md) for instructions, expected results, and environment details.
 
 The instructions below cover the **full 5-task pipeline (all months, full training epoches,  not required for artifact evaluation)** and are provided for future research.
 
@@ -167,15 +171,19 @@ data/
 `stepI_trained_models/` and `stepII_constructed_datasets/` contain our own precomputed Step I and Step II outputs, used by default.
 
 
+## Feature Extraction
+
+The dataset includes the precomputed graph and image features used by the artifact. To extract graph features for new samples, see the [feature-extraction implementation and instructions](https://github.com/gloryer/malware-detection-concept-drift#running-the-experiments):
+
+- [CFG extraction](https://github.com/gloryer/malware-detection-concept-drift/blob/main/CFG/extract_cfg.ipynb): converts assembly files into control-flow graphs.
+- [CFG node embeddings](https://github.com/gloryer/malware-detection-concept-drift/blob/main/CFG/generate_embeddings.ipynb): generates node embeddings with PalmTree.
+
 
 ## MB-24+ Original Binaries
 
 Original malware binaries can be downloaded from [MalwareBazaar](https://bazaar.abuse.ch/) using the provided SHA-256 hashes. SHA-256 hashes are listed by month in [`data/labels/mb24`](data/labels/mb24).
 
 Note: Due to copyright restrictions, we are unable to share the Windows benign samples.
-
-> [!IMPORTANT]
-> For how to extract graph features from binaries, please see [malware-detection-concept-drift](https://github.com/gloryer/malware-detection-concept-drift) for details.
 
 ## Ethics
 
